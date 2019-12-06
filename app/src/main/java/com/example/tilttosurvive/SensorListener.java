@@ -41,10 +41,11 @@ public class SensorListener implements SensorEventListener {
                         event.values[1] + " Y value \n" +
                         event.values[2] + " Z value \n";
                 mainActivity.setsGyroscope(gyro);
+                Toast.makeText(mainActivity, "Tilt forward detected!" , Toast.LENGTH_SHORT).show();
 
             }
-            if(event.values[0] > lastSense - 2.0f){
-                Toast.makeText(mainActivity, "Step taken!" , Toast.LENGTH_SHORT).show();
+            if(event.values[0] < -1.0f){
+                Toast.makeText(mainActivity, "Tilt backward detected!" , Toast.LENGTH_SHORT).show();
             }
         }
 
