@@ -65,13 +65,11 @@ public class SensorListener implements SensorEventListener {
         if(value < -1.5f){
             backward = true;
             backFirst = true;
-            forwardFirst = false;
         }
 
         if(value > 1.5f){
             forward = true;
             forwardFirst = true;
-            backFirst = false;
         }
 
         if(backFirst) {
