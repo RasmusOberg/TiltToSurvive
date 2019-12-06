@@ -13,6 +13,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void shit(){
-        Shit shit = new Shit(); //shit aint working
+//        Shit shit = new Shit(); //shit aint working
     }
 }
