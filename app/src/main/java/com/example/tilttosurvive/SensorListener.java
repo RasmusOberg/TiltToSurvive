@@ -10,7 +10,9 @@ public class SensorListener implements SensorEventListener {
     MainActivity mainActivity;
 
     String acc = "", gyro = "", proxy = "";
-    private float lastSense;
+    private float lastForward, lastBackward;
+
+    boolean forward = false, backward = false, backFirst, forwardFirst;
 
 
     public SensorListener(MainActivity mainActivity){
@@ -35,17 +37,20 @@ public class SensorListener implements SensorEventListener {
 
 
 
-            if(event.values[0] > 1.0f)  {
-                lastSense = event.values[0];
+            if(event.values[0] > 1.5f)  {
+                lastForward = event.values[0];
                 gyro = event.values[0] + " X value \n" +
                         event.values[1] + " Y value \n" +
-                        event.values[2] + " Z value \n";
+                        event.values[2] + " Z value \n"
+                        + lastForward + "LASTSENSE";
                 mainActivity.setsGyroscope(gyro);
-                Toast.makeText(mainActivity, "Tilt forward detected!" , Toast.LENGTH_SHORT).show();
-
+//                Toast.makeText(mainActivity, "Tilt forward detected!" , Toast.LENGTH_SHORT).show();
+                stepTaken(lastForward);
             }
-            if(event.values[0] < -1.0f){
-                Toast.makeText(mainActivity, "Tilt backward detected!" , Toast.LENGTH_SHORT).show();
+            if(event.values[0] < -1.5f){
+//                Toast.makeText(mainActivity, "Tilt backward detected!" , Toast.LENGTH_SHORT).show();
+                lastBackward = event.values[0];
+                stepTaken(lastBackward);
             }
         }
 
@@ -53,6 +58,38 @@ public class SensorListener implements SensorEventListener {
 
             proxy = event.values[0] + " The only fkn value leggo";
             mainActivity.setsProximity(proxy);
+        }
+    }
+
+    public void stepTaken(float value){
+        if(value < -1.5f){
+            backward = true;
+            backFirst = true;
+            forwardFirst = false;
+        }
+
+        if(value > 1.5f){
+            forward = true;
+            forwardFirst = true;
+            backFirst = false;
+        }
+
+        if(backFirst) {
+            if (forward) {
+                Toast.makeText(mainActivity, "Step back", Toast.LENGTH_SHORT).show();
+                forward = false;
+                backward = false;
+                backFirst = false;
+                forwardFirst = false;
+            }
+        }else if(forwardFirst) {
+            if (backward) {
+                Toast.makeText(mainActivity, "Step forward!", Toast.LENGTH_SHORT).show();
+                forward = false;
+                backward = false;
+                backFirst = false;
+                forwardFirst = false;
+            }
         }
     }
 
