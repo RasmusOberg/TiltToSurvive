@@ -12,7 +12,7 @@ public class SensorListener implements SensorEventListener {
     String acc = "", gyro = "", proxy = "";
     private float lastForward, lastBackward;
 
-    boolean forward = false, backward = false, backFirst, forwardFirst;
+    boolean forward = false, backward = false, isFullStepTaken = false;
 
 
     public SensorListener(MainActivity mainActivity){
@@ -35,7 +35,13 @@ public class SensorListener implements SensorEventListener {
 //            x är fram och tillbaka
 //            y är höger och vänster
 
+            if(event.values[0] < 0.3f && event.values[0] > -0.3f){
+                isFullStepTaken = false;
+            }
 
+            if(isFullStepTaken){
+                return;
+            }
 
             if(event.values[0] > 1.5f)  {
                 lastForward = event.values[0];
@@ -62,31 +68,32 @@ public class SensorListener implements SensorEventListener {
     }
 
     public void stepTaken(float value){
+
+
         if(value < -1.5f){
             backward = true;
-            backFirst = true;
         }
 
         if(value > 1.5f){
             forward = true;
-            forwardFirst = true;
         }
 
-        if(backFirst) {
-            if (forward) {
+
+        if(backward) {
+            if (value > 1.5f) {
                 Toast.makeText(mainActivity, "Step back", Toast.LENGTH_SHORT).show();
                 forward = false;
                 backward = false;
-                backFirst = false;
-                forwardFirst = false;
+                isFullStepTaken = true;
             }
-        }else if(forwardFirst) {
-            if (backward) {
+        }
+
+        if(forward) {
+            if (value < -1.5f) {
                 Toast.makeText(mainActivity, "Step forward!", Toast.LENGTH_SHORT).show();
                 forward = false;
                 backward = false;
-                backFirst = false;
-                forwardFirst = false;
+                isFullStepTaken = true;
             }
         }
     }
