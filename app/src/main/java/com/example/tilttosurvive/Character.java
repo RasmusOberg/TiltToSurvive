@@ -29,6 +29,7 @@ public class Character {
     public void update(){
         if(x<0 && y<0){
             x = screenWidth / 2;
+
             y = screenHeight / 2;
         } else {
             x+= xVelocity;
