@@ -1,6 +1,7 @@
 package com.example.tilttosurvive;
 
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.view.SurfaceHolder;
 import android.widget.Toast;
 
@@ -46,7 +47,5 @@ public class GameThread extends Thread {
                 }
             }
         }
-
-
     }
 }
