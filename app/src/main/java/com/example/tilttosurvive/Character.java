@@ -33,7 +33,7 @@ public class Character {
             x2 -= moveX;
             y2 -= moveY;
         }
-        //
+
 //        if(x2<0 && y2<0){
 //            x2 = screenWidth / 2;
 //            y2 = screenHeight / 2;
