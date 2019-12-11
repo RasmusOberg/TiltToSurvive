@@ -18,15 +18,10 @@ import android.widget.Toast;
 public class MainActivity extends AppCompatActivity {
 
     SensorManager sensorManager;
-
     Sensor sAcc, sGyroscope, sProximity;
-
     SensorListener sensorListener;
-
     boolean isAccPresent, isGyroPresent, isProximityPresent;
-
     float gyroX, gyroY, gyroZ, accX, accY, accZ;
-
     TextView tvAcc, tvGyro, tvProxy;
     private Button btnTest;
     private ImageView image;

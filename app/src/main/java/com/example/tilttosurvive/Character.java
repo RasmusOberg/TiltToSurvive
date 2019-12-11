@@ -22,7 +22,6 @@ public class Character {
 
     public Character(Bitmap ninja){
         this.ninja = ninja;
-        ninja.
     }
 
     public void draw(Canvas canvas){
@@ -33,6 +32,7 @@ public class Character {
         if(x2<0 && y2<0){
             x2 -= moveX;
             y2 -= moveY;
+
         }
 //
 //        if(x2<0 && y2<0){

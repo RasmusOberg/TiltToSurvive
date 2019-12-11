@@ -1,6 +1,7 @@
 package com.example.tilttosurvive;
 
 import android.content.Context;
+import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
@@ -20,6 +21,9 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
     private int x = 1205; //285
     private int y = 2060; //290
 
+
+    private int screenWidth = Resources.getSystem().getDisplayMetrics().widthPixels;
+    private int screenHeight = Resources.getSystem().getDisplayMetrics().heightPixels;
 //    private Button btnMove;
 
     public GameView(Context context){
@@ -27,7 +31,9 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
 
         backgroundImage = BitmapFactory.decodeResource(getResources(), R.drawable.bakgrund2);
 //        characterImage = BitmapFactory.decodeResource(getResources(), R.drawable.ninja2);
-        backgroundImage.createScaledBitmap(backgroundImage,500,500,false);
+        backgroundImage.createScaledBitmap(backgroundImage,screenWidth,screenHeight,false);
+
+
 
         getHolder().addCallback(this);
 
@@ -40,7 +46,7 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
 
 
 //        character = new Character(BitmapFactory.decodeResource(getResources(), R.drawable.gubbe));
-        character = new Character(BitmapFactory.decodeResource(getResources(), R.drawable.ninja2));
+        character = new Character(BitmapFactory.decodeResource(getResources(), R.drawable.gubbe));
 
         gameThread.setRunning(true);
         gameThread.start();
@@ -88,8 +94,6 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
 
         canvas.drawBitmap(backgroundImage,0,0,null);
 //        canvas.drawBitmap(characterImage, x, y, null);
-
-        canvas.sc
 
         if(canvas!=null){
             character.draw(canvas);
