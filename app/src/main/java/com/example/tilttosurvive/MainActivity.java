@@ -87,9 +87,9 @@ public class MainActivity extends AppCompatActivity {
 //                ObjectAnimator animation = ObjectAnimator.ofFloat(btnTest, "translationX", 100f);
 //                animation.setDuration(2000);
 //                animation.start();
-                btnTest.animate().translationX(100f).setDuration(1000);
+//                btnTest.animate().translationX(100f).setDuration(1000);
 
-//                startActivity(i);
+                startActivity(i);
             }
         });
     }

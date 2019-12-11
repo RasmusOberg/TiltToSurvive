@@ -15,7 +15,7 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
     private Character character;
 
     private Bitmap backgroundImage;
-    private Bitmap characterImage;
+//    private Bitmap characterImage;
 
     private int x = 1205; //285
     private int y = 2060; //290
@@ -26,7 +26,7 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
         super(context);
 
         backgroundImage = BitmapFactory.decodeResource(getResources(), R.drawable.bakgrund2);
-        characterImage = BitmapFactory.decodeResource(getResources(), R.drawable.ninja2);
+//        characterImage = BitmapFactory.decodeResource(getResources(), R.drawable.ninja2);
         backgroundImage.createScaledBitmap(backgroundImage,500,500,false);
 
         getHolder().addCallback(this);
