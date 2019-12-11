@@ -27,7 +27,8 @@ public class SensorListener implements SensorEventListener {
 
             acc = event.values[0] + " X value \n" +
                     event.values[1] + " Y value \n" +
-                    event.values[2] + " Z value \n";
+                    event.values[2] + " Z value \n" +
+                    "ACCCCCCCCC";
             mainActivity.setsAcc(acc);
         }
 
@@ -80,8 +81,17 @@ public class SensorListener implements SensorEventListener {
         if(event.sensor.getType() == Sensor.TYPE_PROXIMITY){
 
             proxy = event.values[0] + " The only fkn value leggo";
+            if(event.values[0] == 0){
+                proximityMethod(event.values[0]);
+            }
             mainActivity.setsProximity(proxy);
         }
+    }
+
+    private void proximityMethod(float value){
+
+        Toast.makeText(mainActivity, "Proximity SENSOR IS FKN DARK DO SOMTHING", Toast.LENGTH_SHORT).show();
+//        doSomething();
     }
 
     public void stepTakenX(float value){
