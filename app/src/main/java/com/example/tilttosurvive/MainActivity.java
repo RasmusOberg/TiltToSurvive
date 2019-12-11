@@ -2,6 +2,7 @@ package com.example.tilttosurvive;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.animation.ObjectAnimator;
 import android.content.Context;
 import android.content.Intent;
 import android.hardware.Sensor;
@@ -10,6 +11,7 @@ import android.hardware.SensorManager;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -27,6 +29,8 @@ public class MainActivity extends AppCompatActivity {
 
     TextView tvAcc, tvGyro, tvProxy;
     private Button btnTest;
+    private ImageView image;
+    private Button button;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -80,7 +84,12 @@ public class MainActivity extends AppCompatActivity {
         btnTest.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(i);
+//                ObjectAnimator animation = ObjectAnimator.ofFloat(btnTest, "translationX", 100f);
+//                animation.setDuration(2000);
+//                animation.start();
+                btnTest.animate().translationX(100f).setDuration(1000);
+
+//                startActivity(i);
             }
         });
     }
