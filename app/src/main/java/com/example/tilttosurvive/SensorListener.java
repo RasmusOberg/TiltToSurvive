@@ -10,9 +10,10 @@ public class SensorListener implements SensorEventListener {
     MainActivity mainActivity;
 
     String acc = "", gyro = "", proxy = "";
-    private float lastForward, lastBackward;
+    private float lastForwardX, lastBackwardX, lastForwardY, lastBackwardY;
 
-    boolean forward = false, backward = false, isFullStepTaken = false;
+    boolean forwardX = false, backwardX = false, forwardY = false, backwardY = false;
+    boolean isFullStepTakenX = false, isFullStepTakenY = false;
 
 
     public SensorListener(MainActivity mainActivity){
@@ -36,27 +37,43 @@ public class SensorListener implements SensorEventListener {
 //            y är höger och vänster
 
             if(event.values[0] < 0.3f && event.values[0] > -0.3f){
-                isFullStepTaken = false;
+                isFullStepTakenX = false;
             }
 
-            if(isFullStepTaken){
+            if(isFullStepTakenX){
+                return;
+            }
+
+            if(event.values[1] < 0.3f && event.values[1] > -0.3f){
+                isFullStepTakenY = false;
+            }
+
+            if(isFullStepTakenY){
                 return;
             }
 
             if(event.values[0] > 1.5f)  {
-                lastForward = event.values[0];
-                gyro = event.values[0] + " X value \n" +
-                        event.values[1] + " Y value \n" +
-                        event.values[2] + " Z value \n"
-                        + lastForward + "LASTSENSE";
-                mainActivity.setsGyroscope(gyro);
-//                Toast.makeText(mainActivity, "Tilt forward detected!" , Toast.LENGTH_SHORT).show();
-                stepTaken(lastForward);
+                lastForwardX = event.values[0];
+//                gyro = event.values[0] + " X value \n" +
+//                        event.values[1] + " Y value \n" +
+//                        event.values[2] + " Z value \n"
+//                        + lastForwardX + "LASTSENSE";
+//                mainActivity.setsGyroscope(gyro);
+                stepTakenX(lastForwardX);
             }
             if(event.values[0] < -1.5f){
-//                Toast.makeText(mainActivity, "Tilt backward detected!" , Toast.LENGTH_SHORT).show();
-                lastBackward = event.values[0];
-                stepTaken(lastBackward);
+                lastBackwardX = event.values[0];
+                stepTakenX(lastBackwardX);
+            }
+
+            if(event.values[1] > 1.5f)  {
+                lastForwardY = event.values[1];
+
+                stepTakenY(lastForwardY);
+            }
+            if(event.values[1] < -1.5f){
+                lastBackwardY = event.values[1];
+                stepTakenY(lastBackwardY);
             }
         }
 
@@ -67,33 +84,64 @@ public class SensorListener implements SensorEventListener {
         }
     }
 
-    public void stepTaken(float value){
+    public void stepTakenX(float value){
 
 
         if(value < -1.5f){
-            backward = true;
+            backwardX = true;
         }
 
         if(value > 1.5f){
-            forward = true;
+            forwardX = true;
         }
 
 
-        if(backward) {
+        if(backwardX) {
             if (value > 1.5f) {
-                Toast.makeText(mainActivity, "Step back", Toast.LENGTH_SHORT).show();
-                forward = false;
-                backward = false;
-                isFullStepTaken = true;
+                Toast.makeText(mainActivity, "Step forward", Toast.LENGTH_SHORT).show();
+                forwardX = false;
+                backwardX = false;
+                isFullStepTakenX = true;
             }
         }
 
-        if(forward) {
+        if(forwardX) {
             if (value < -1.5f) {
-                Toast.makeText(mainActivity, "Step forward!", Toast.LENGTH_SHORT).show();
-                forward = false;
-                backward = false;
-                isFullStepTaken = true;
+                Toast.makeText(mainActivity, "Step back!", Toast.LENGTH_SHORT).show();
+                forwardX = false;
+                backwardX = false;
+                isFullStepTakenX = true;
+            }
+        }
+    }
+
+    public void stepTakenY(float value){
+
+
+        if(value < -1.5f){
+            backwardY = true;
+        }
+
+        if(value > 1.5f){
+            forwardY = true;
+        }
+
+
+        if(backwardY) {
+            if (value > 1.5f) {
+                Toast.makeText(mainActivity, "Step left", Toast.LENGTH_SHORT).show();
+                forwardY = false;
+                backwardY = false;
+                isFullStepTakenY = true;
+            }
+        }
+
+        if(forwardY) {
+            if (value < -1.5f) {
+                Toast.makeText(mainActivity, "Step right!", Toast.LENGTH_SHORT).show();
+                forwardY = false;
+                backwardY = false;
+                isFullStepTakenY = true;
             }
         }
     }
