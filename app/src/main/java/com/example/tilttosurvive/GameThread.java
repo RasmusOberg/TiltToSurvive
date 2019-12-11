@@ -26,7 +26,6 @@ public class GameThread extends Thread {
 
         while(running){
             canvas = null;
-
             try{
                 canvas = this.surfaceHolder.lockCanvas();
                 synchronized (surfaceHolder){

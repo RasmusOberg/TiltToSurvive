@@ -8,10 +8,8 @@ import android.widget.Toast;
 public class SensorListener implements SensorEventListener {
 
     MainActivity mainActivity;
-
     String acc = "", gyro = "", proxy = "";
     private float lastForwardX, lastBackwardX, lastForwardY, lastBackwardY;
-
     boolean forwardX = false, backwardX = false, forwardY = false, backwardY = false;
     boolean isFullStepTakenX = false, isFullStepTakenY = false;
 
@@ -65,6 +63,8 @@ public class SensorListener implements SensorEventListener {
                 lastBackwardX = event.values[0];
                 stepTakenX(lastBackwardX);
             }
+
+
 
             if(event.values[1] > 1.5f)  {
                 lastForwardY = event.values[1];
@@ -148,6 +148,8 @@ public class SensorListener implements SensorEventListener {
 
     @Override
     public void onAccuracyChanged(Sensor sensor, int accuracy) {
+
+
 
     }
 }

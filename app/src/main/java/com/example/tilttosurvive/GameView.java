@@ -15,7 +15,7 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
     private Character character;
 
     private Bitmap backgroundImage;
-    private Bitmap characterImage;
+//    private Bitmap characterImage;
 
     private int x = 1205; //285
     private int y = 2060; //290
@@ -26,7 +26,7 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
         super(context);
 
         backgroundImage = BitmapFactory.decodeResource(getResources(), R.drawable.bakgrund2);
-        characterImage = BitmapFactory.decodeResource(getResources(), R.drawable.ninja2);
+//        characterImage = BitmapFactory.decodeResource(getResources(), R.drawable.ninja2);
         backgroundImage.createScaledBitmap(backgroundImage,500,500,false);
 
         getHolder().addCallback(this);
@@ -75,6 +75,7 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
     }
 
     public void update(){
+
         character.update();
 
         // Här kommer Input från sensor tror jag hahahahahhahahahahaha =D
@@ -88,8 +89,11 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
         canvas.drawBitmap(backgroundImage,0,0,null);
 //        canvas.drawBitmap(characterImage, x, y, null);
 
+        canvas.sc
+
         if(canvas!=null){
             character.draw(canvas);
+
         }
 
         //fuckgit
