@@ -24,8 +24,8 @@ public class MainActivity extends AppCompatActivity {
     float gyroX, gyroY, gyroZ, accX, accY, accZ;
     TextView tvAcc, tvGyro, tvProxy;
     private Button btnTest;
-    private ImageView image;
-    private Button button;
+//    private ImageView image;
+//    private Button button;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
