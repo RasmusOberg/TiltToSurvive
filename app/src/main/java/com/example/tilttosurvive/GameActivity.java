@@ -28,8 +28,8 @@ public class GameActivity extends Activity {
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         this.requestWindowFeature(Window.FEATURE_NO_TITLE);
 
-
-        setContentView(new GameView(this));
+        gameView = new GameView(this);
+        setContentView(gameView);
         sensorListener = new SensorListener(this);
 
         sensorManager = (SensorManager) this.getSystemService(Context.SENSOR_SERVICE);
@@ -80,6 +80,25 @@ public class GameActivity extends Activity {
     public void unRegisterSensors(){
         sensorManager.unregisterListener(sensorListener);
     }
+
+    public void moveForward(){
+        gameView.moveForward();
+    }
+
+    public void moveLeft(){
+        gameView.moveLeft();
+    }
+
+    public void moveRight(){
+        gameView.moveRight();
+    }
+
+    public void moveDown(){
+        gameView.moveDown();
+    }
+
+
+
 
     @Override
     protected void onPause() {

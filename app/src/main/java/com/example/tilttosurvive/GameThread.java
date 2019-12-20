@@ -23,7 +23,6 @@ public class GameThread extends Thread {
 
     @Override
     public void run() {
-
         while(running){
             canvas = null;
             try{
