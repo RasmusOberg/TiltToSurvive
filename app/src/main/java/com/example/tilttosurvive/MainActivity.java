@@ -39,7 +39,7 @@ public class MainActivity extends AppCompatActivity {
 
         initialize();
 
-        sensorListener = new SensorListener(this);
+//        sensorListener = new SensorListener(this);
 
         sensorManager = (SensorManager) this.getSystemService(Context.SENSOR_SERVICE);
 
