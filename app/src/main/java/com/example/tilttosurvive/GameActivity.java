@@ -13,11 +13,10 @@ import android.view.WindowManager;
 import android.widget.Toast;
 
 public class GameActivity extends Activity {
-
-    SensorManager sensorManager;
-    Sensor sAcc, sGyroscope, sProximity;
-    SensorListener sensorListener;
-    boolean isAccPresent, isGyroPresent, isProximityPresent;
+    private SensorManager sensorManager;
+    private Sensor sAcc, sGyroscope, sProximity;
+    private SensorListener sensorListener;
+    private boolean isAccPresent, isGyroPresent, isProximityPresent;
     private GameView gameView;
     private MediaPlayer mediaPlayer;
 
