@@ -16,6 +16,7 @@ import androidx.core.content.ContextCompat;
 public class GameView extends SurfaceView implements SurfaceHolder.Callback {
     private GameThread gameThread;
     private Character character;
+    private Canvas canvas;
 
     private Bitmap backgroundImage;
     private Bitmap monster;
@@ -60,6 +61,22 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
 
     }
 
+    public void moveForward(){
+        character.moveForward(canvas);
+    }
+
+    public void moveLeft(){
+        character.moveLeft(canvas);
+    }
+
+    public void moveRight(){
+        character.moveRight(canvas);
+    }
+
+    public void moveDown(){
+        character.moveDown(canvas);
+    }
+
     @Override
     public void surfaceChanged(SurfaceHolder holder, int format, int width, int height) {
 
@@ -97,7 +114,7 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
     @Override
     public void draw(Canvas canvas) {
         super.draw(canvas);
-
+        this.canvas = canvas;
         canvas.drawBitmap(backgroundImage,0,0,null);
         canvas.drawBitmap(monster,50,50,null);
         canvas.drawBitmap(monster2, 150, 150, null);
@@ -111,6 +128,6 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
             character.draw(canvas);
         }
 
-        //fuckgitf
+        //fuckgitfj
     }
 }
