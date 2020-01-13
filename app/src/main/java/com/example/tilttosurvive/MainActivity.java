@@ -2,11 +2,9 @@ package com.example.tilttosurvive;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.animation.ObjectAnimator;
 import android.content.Context;
 import android.content.Intent;
 import android.hardware.Sensor;
-import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.os.Bundle;
 import android.view.View;
@@ -28,7 +26,8 @@ public class MainActivity extends AppCompatActivity {
     float gyroX, gyroY, gyroZ, accX, accY, accZ;
 
     TextView tvAcc, tvGyro, tvProxy;
-    private Button btnTest;
+    private Button btnStart;
+    private Button btnInstructions;
     private ImageView image;
     private Button button;
 
@@ -79,19 +78,20 @@ public class MainActivity extends AppCompatActivity {
         tvProxy = findViewById(R.id.tvProxy);
 
         final Intent i = new Intent(this, GameActivity.class);
-
-        btnTest = findViewById(R.id.btnTest);
-        btnTest.setOnClickListener(new View.OnClickListener() {
+        btnStart = findViewById(R.id.btnStart);
+        btnStart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 //                ObjectAnimator animation = ObjectAnimator.ofFloat(btnTest, "translationX", 100f);
 //                animation.setDuration(2000);
 //                animation.start();
 //                btnTest.animate().translationX(100f).setDuration(1000);
-
                 startActivity(i);
             }
         });
+
+        btnInstructions = findViewById(R.id.btnInstructions);
+        btnInstructions.setOnClickListener(new InstructionsListener());
     }
 
     public void setsAcc(String string){
@@ -135,5 +135,12 @@ public class MainActivity extends AppCompatActivity {
         registerSensors();
     }
 
+    private class InstructionsListener implements View.OnClickListener {
+        @Override
+        public void onClick(View v) {
+            Intent intent = new Intent(MainActivity.this, InstuctionActivity.class);
+            startActivity(intent);
+        }
+    }
 }
 
