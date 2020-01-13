@@ -11,7 +11,7 @@ import androidx.sqlite.db.SupportSQLiteDatabase;
 public abstract class Database extends RoomDatabase {
     private static Database instance;
 
-    public abstract com.example.tilttosurvive.Database.Dao dao();
+    public abstract com.example.tilttosurvive.Dao dao();
 
     public static synchronized Database getInstance(Context context){
         if(instance == null){

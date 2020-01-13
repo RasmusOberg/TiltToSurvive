@@ -12,8 +12,8 @@ public class Character {
     private int x2 = 1205;
     private int y2 = 2350;
 
-    private int moveX = 285;
-    private int moveY = 290;
+    private int moveX = 295;
+    private int moveY = 295;
     //    private Bitmap image;
 //    private int x, y;
 //    private int xVelocity = 10;
@@ -23,6 +23,7 @@ public class Character {
 
     public Character(Bitmap ninja) {
         this.ninja = ninja;
+
     }
 
     public void draw(Canvas canvas) {
@@ -58,6 +59,9 @@ public class Character {
             y2 = y2 - moveY;
             canvas.drawBitmap(ninja, x2, y2, null);
 //            Log.w("TEST123", "moveForward x2 = " + x2 + " y2 = " + y2);
+
+            Log.w("TEST123", "ninja  widht = " + ninja.getWidth() + " height = " + ninja.getHeight());
+
         }
 
 
@@ -70,10 +74,12 @@ public class Character {
         canvas.drawBitmap(ninja, x2, y2, null);
 //        Log.w("TEST123", "moveLeft x2 = " + x2 + " y2 = " + y2);
 
-        if (x2 < 65) {
+        if (x2 < 25) {
             x2 = 1205;
             canvas.drawBitmap(ninja, x2, y2, null);
         }
+
+        Log.w("TEST123", "ninja  widht = " + ninja.getWidth() + " height = " + ninja.getHeight());
 
 
     }
@@ -84,13 +90,12 @@ public class Character {
         canvas.drawBitmap(ninja, x2, y2, null);
 
         if (x2 > 1205) {
-            x2 = 65;
+            x2 = 25;
             canvas.drawBitmap(ninja, x2, y2, null);
         }
 
         Log.w("TEST123", "moveRight x2 = " + x2 + " y2 = " + y2);
-
-
+        Log.w("TEST123", "ninja  widht = " + ninja.getWidth() + " height = " + ninja.getHeight());
     }
 
     public void moveDown(Canvas canvas) {
@@ -99,14 +104,19 @@ public class Character {
             y2 = y2 + moveY;
             canvas.drawBitmap(ninja, x2, y2, null);
             Log.w("TEST123", "moveDown x2 = " + x2 + " y2 = " + y2);
-
+            Log.w("TEST123", "ninja  widht = " + ninja.getWidth() + " height = " + ninja.getHeight());
         }
-
-
     }
 
+    public int getX() {
+        return x2;
+    }
 
-//    public Character(Bitmap bitMap){
+    public int getY() {
+        return y2;
+    }
+
+    //    public Character(Bitmap bitMap){
 //       this.image = bitMap;
 //       x = 100;
 //       y= 100;

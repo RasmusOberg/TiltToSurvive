@@ -1,16 +1,20 @@
 package com.example.tilttosurvive;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Point;
+import android.util.Log;
 import android.view.Display;
 import android.view.SurfaceView;
 import android.view.SurfaceHolder;
 import android.widget.Toast;
+
+import java.util.ArrayList;
 
 import androidx.core.content.ContextCompat;
 
@@ -27,19 +31,20 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
     private Bitmap monster5;
     //    private Bitmap characterImage;
 
+    private ArrayList<Monster> monsterList = new ArrayList<>();
+
     private int screenWidth = Resources.getSystem().getDisplayMetrics().widthPixels;
     private int screenHeight = Resources.getSystem().getDisplayMetrics().heightPixels;
 
 //    private Button btnMove;
 
-    public GameView(Context context){
+    public GameView(Context context) {
         super(context);
-
         backgroundImage = BitmapFactory.decodeResource(getResources(), R.drawable.bakgrund4);
 //        characterImage = BitmapFactory.decodeResource(getResources(), R.drawable.ninja2);
-        backgroundImage.createScaledBitmap(backgroundImage,screenWidth,screenHeight,false);
-
+        backgroundImage.createScaledBitmap(backgroundImage, screenWidth, screenHeight, false);
         getHolder().addCallback(this);
+
 
         gameThread = new GameThread(getHolder(), this);
         setFocusable(true);
@@ -47,35 +52,49 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
 
     @Override
     public void surfaceCreated(SurfaceHolder holder) {
-
-
 //        character = new Character(BitmapFactory.decodeResource(getResources(), R.drawable.gubbe));
         character = new Character(BitmapFactory.decodeResource(getResources(), R.drawable.ninja2));
-        monster = BitmapFactory.decodeResource(getResources(), R.drawable.monster);
-        monster2 = BitmapFactory.decodeResource(getResources(), R.drawable.monster2);
-        monster3 = BitmapFactory.decodeResource(getResources(), R.drawable.monster3);
-        monster4 = BitmapFactory.decodeResource(getResources(), R.drawable.monster4);
-        monster5 = BitmapFactory.decodeResource(getResources(), R.drawable.monster5);
+
+        Monster monster1 = new Monster(BitmapFactory.decodeResource(getResources(), R.drawable.monster), 320, 2350);
+        monsterList.add(monster1);
+        Monster monster2 = new Monster(BitmapFactory.decodeResource(getResources(), R.drawable.monster2), 910, 2055);
+        monsterList.add(monster2);
+        Monster monster3 = new Monster(BitmapFactory.decodeResource(getResources(), R.drawable.monster3), 615, 1760);
+        monsterList.add(monster3);
+        Monster monster4 = new Monster(BitmapFactory.decodeResource(getResources(), R.drawable.monster4), 1205, 1465);
+        monsterList.add(monster4);
+
+//        monster = BitmapFactory.decodeResource(getResources(), R.drawable.monster);
+//        monster2 = BitmapFactory.decodeResource(getResources(), R.drawable.monster2);
+//        monster3 = BitmapFactory.decodeResource(getResources(), R.drawable.monster3);
+//        monster4 = BitmapFactory.decodeResource(getResources(), R.drawable.monster4);
+//        monster5 = BitmapFactory.decodeResource(getResources(), R.drawable.monster5);
 
         gameThread.setRunning(true);
         gameThread.start();
 
     }
 
-    public void moveForward(){
+    public void moveForward() {
+
         character.moveForward(canvas);
+        checkChar();
     }
 
-    public void moveLeft(){
+    public void moveLeft() {
         character.moveLeft(canvas);
+        checkChar();
+
     }
 
-    public void moveRight(){
+    public void moveRight() {
         character.moveRight(canvas);
+        checkChar();
     }
 
-    public void moveDown(){
+    public void moveDown() {
         character.moveDown(canvas);
+        checkChar();
     }
 
     @Override
@@ -86,8 +105,8 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
     @Override
     public void surfaceDestroyed(SurfaceHolder holder) {
         boolean retry = true;
-        while(retry){
-            try{
+        while (retry) {
+            try {
                 gameThread.setRunning(false);
                 gameThread.join();
 
@@ -100,12 +119,25 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
     }
     //
 
+    public void checkChar(){
+        for (int i = 0; i < monsterList.size(); i++) {
+            if (character.getX() == monsterList.get(i).getX() && character.getY() == monsterList.get(i).getY()){
+                Toast.makeText(getContext(), "DEAD!!!! hahahahaah", Toast.LENGTH_SHORT).show();
 
-    public void toast(){
+                Intent i2  = new Intent(getContext(), MainActivity.class);
+                gameThread.setRunning(false);
+                getContext().startActivity(i2);
+//                canvas.re
+            }
+        }
+
+    }
+
+    public void toast() {
         Toast.makeText(getContext(), "Run metoden anropas haha =)", Toast.LENGTH_SHORT).show();
     }
 
-    public void update(){
+    public void update() {
         character.update();
 
         // Här kommer Input från sensor tror jag hahahahahhahahahahaha =D
@@ -116,17 +148,31 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
     public void draw(Canvas canvas) {
         super.draw(canvas);
         this.canvas = canvas;
-        canvas.drawBitmap(backgroundImage,0,0,null);
-        canvas.drawBitmap(monster,50,50,null);
-        canvas.drawBitmap(monster2, 150, 150, null);
-        canvas.drawBitmap(monster3, 300, 300, null);
-        canvas.drawBitmap(monster4, 400,400,null);
-        canvas.drawBitmap(monster5, 600,600,null);
-
+        canvas.drawBitmap(backgroundImage, 0, 0, null);
+//        canvas.drawBitmap(monster,50,50,null);
+//        canvas.drawBitmap(monster2, 150, 150, null);
+//        canvas.drawBitmap(monster3, 300, 300, null);
+//        canvas.drawBitmap(monster4, 400,400,null);
+//        canvas.drawBitmap(monster5, 600,600,null);
+//
+//
+//
+//        Log.w("TEST123", "Monster 1  widht = " + monster.getWidth() + " height = " + monster.getHeight());
+//        Log.w("TEST123", "Monster 2  widht = " + monster2.getWidth() + " height = " + monster2.getHeight());
+//        Log.w("TEST123", "Monster 3  widht = " + monster3.getWidth() + " height = " + monster3.getHeight());
+//        Log.w("TEST123", "Monster 4  widht = " + monster4.getWidth() + " height = " + monster4.getHeight());
+//        Log.w("TEST123", "Monster 5  widht = " + monster5.getWidth() + " height = " + monster5.getHeight());
+//
+//
+//
 //        canvas.drawBitmap(characterImage, x, y, null);
 
-        if(canvas!=null){
+        if (canvas != null) {
             character.draw(canvas);
+
+            for (int i = 0; i < monsterList.size(); i++) {
+                monsterList.get(i).draw(canvas);
+            }
         }
 
         //fuckgit

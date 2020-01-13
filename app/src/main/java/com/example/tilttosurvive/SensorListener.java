@@ -100,7 +100,7 @@ public class SensorListener implements SensorEventListener {
         if(backwardX) {
             if (value > 1.0f) {
                 gameActivity.moveForward();
-                Toast.makeText(gameActivity, "Step forward", Toast.LENGTH_SHORT).show();
+//                Toast.makeText(gameActivity, "Step forward", Toast.LENGTH_SHORT).show();
                 forwardX = false;
                 backwardX = false;
                 forwardY = false;
@@ -112,7 +112,7 @@ public class SensorListener implements SensorEventListener {
         if(forwardX) {
             if (value < -1.0f) {
                 gameActivity.moveDown();
-                Toast.makeText(gameActivity, "Step back!", Toast.LENGTH_SHORT).show();
+//                Toast.makeText(gameActivity, "Step back!", Toast.LENGTH_SHORT).show();
                 forwardX = false;
                 backwardX = false;
                 forwardY = false;
@@ -137,7 +137,7 @@ public class SensorListener implements SensorEventListener {
         if(backwardY) {
             if (value > 1.0f) {
                 gameActivity.moveLeft();
-                Toast.makeText(gameActivity, "Step left", Toast.LENGTH_SHORT).show();
+//                Toast.makeText(gameActivity, "Step left", Toast.LENGTH_SHORT).show();
                 forwardY = false;
                 backwardY = false;
                 forwardX = false;
@@ -149,7 +149,7 @@ public class SensorListener implements SensorEventListener {
         if(forwardY) {
             if (value < -1.0f) {
                 gameActivity.moveRight();
-                Toast.makeText(gameActivity, "Step right!", Toast.LENGTH_SHORT).show();
+//                Toast.makeText(gameActivity, "Step right!", Toast.LENGTH_SHORT).show();
                 forwardY = false;
                 backwardY = false;
                 forwardX = false;
