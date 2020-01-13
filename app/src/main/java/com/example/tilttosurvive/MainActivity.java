@@ -18,10 +18,15 @@ import android.widget.Toast;
 public class MainActivity extends AppCompatActivity {
 
     SensorManager sensorManager;
+
     Sensor sAcc, sGyroscope, sProximity;
+
     SensorListener sensorListener;
+
     boolean isAccPresent, isGyroPresent, isProximityPresent;
+
     float gyroX, gyroY, gyroZ, accX, accY, accZ;
+
     TextView tvAcc, tvGyro, tvProxy;
     private Button btnTest;
     private ImageView image;
@@ -34,7 +39,7 @@ public class MainActivity extends AppCompatActivity {
 
         initialize();
 
-//        sensorListener = new SensorListener(this);
+        sensorListener = new SensorListener(this);
 
         sensorManager = (SensorManager) this.getSystemService(Context.SENSOR_SERVICE);
 
@@ -82,9 +87,9 @@ public class MainActivity extends AppCompatActivity {
 //                ObjectAnimator animation = ObjectAnimator.ofFloat(btnTest, "translationX", 100f);
 //                animation.setDuration(2000);
 //                animation.start();
-//                btnTest.animate().translationX(100f).setDuration(1000);
+                btnTest.animate().translationX(100f).setDuration(1000);
 
-                startActivity(i);
+//                startActivity(i);
             }
         });
     }

@@ -1,7 +1,6 @@
 package com.example.tilttosurvive;
 
 import android.content.Context;
-import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
@@ -14,27 +13,21 @@ import androidx.core.content.ContextCompat;
 public class GameView extends SurfaceView implements SurfaceHolder.Callback {
     private GameThread gameThread;
     private Character character;
-    private Canvas canvas;
 
     private Bitmap backgroundImage;
-//    private Bitmap characterImage;
+    private Bitmap characterImage;
 
     private int x = 1205; //285
     private int y = 2060; //290
 
-
-    private int screenWidth = Resources.getSystem().getDisplayMetrics().widthPixels;
-    private int screenHeight = Resources.getSystem().getDisplayMetrics().heightPixels;
 //    private Button btnMove;
 
     public GameView(Context context){
         super(context);
 
         backgroundImage = BitmapFactory.decodeResource(getResources(), R.drawable.bakgrund2);
-//        characterImage = BitmapFactory.decodeResource(getResources(), R.drawable.ninja2);
-        backgroundImage.createScaledBitmap(backgroundImage,screenWidth,screenHeight,false);
-
-
+        characterImage = BitmapFactory.decodeResource(getResources(), R.drawable.ninja2);
+        backgroundImage.createScaledBitmap(backgroundImage,500,500,false);
 
         getHolder().addCallback(this);
 
@@ -56,8 +49,6 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
 
     @Override
     public void surfaceChanged(SurfaceHolder holder, int format, int width, int height) {
-
-
 
     }
 
@@ -84,40 +75,21 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
     }
 
     public void update(){
-
         character.update();
 
         // Här kommer Input från sensor tror jag hahahahahhahahahahaha =D
 
     }
 
-    public void moveForward(){
-        character.moveForward(canvas);
-    }
-
-    public void moveLeft(){
-        character.moveLeft(canvas);
-    }
-
-    public void moveRight(){
-        character.moveRight(canvas);
-    }
-
-    public void moveDown(){
-        character.moveDown(canvas);
-    }
-
     @Override
     public void draw(Canvas canvas) {
         super.draw(canvas);
-        this.canvas = canvas;
 
         canvas.drawBitmap(backgroundImage,0,0,null);
 //        canvas.drawBitmap(characterImage, x, y, null);
 
         if(canvas!=null){
             character.draw(canvas);
-
         }
 
         //fuckgit
