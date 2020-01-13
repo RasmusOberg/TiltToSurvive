@@ -129,6 +129,6 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
             character.draw(canvas);
         }
 
-        //fuckgitfj
+        //fuckgit
     }
 }
