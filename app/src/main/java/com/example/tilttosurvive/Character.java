@@ -52,6 +52,33 @@ public class Character {
 //        }
     }
 
+    public void moveForward(Canvas canvas){
+        y2 = y2-moveY;
+        canvas.drawBitmap(ninja, x2, y2, null);
+
+
+    }
+
+    public void moveLeft(Canvas canvas){
+        x2 = x2-moveX;
+        canvas.drawBitmap(ninja, x2, y2, null);
+
+
+    }
+    public void moveRight(Canvas canvas){
+        x2 = x2+moveX;
+        canvas.drawBitmap(ninja, x2, y2, null);
+
+
+    }
+
+    public void moveDown(Canvas canvas){
+        y2 = y2+moveY;
+        canvas.drawBitmap(ninja, x2, y2, null);
+
+
+    }
+
 
 
 //    public Character(Bitmap bitMap){

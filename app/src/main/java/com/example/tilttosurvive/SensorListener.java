@@ -7,7 +7,7 @@ import android.widget.Toast;
 
 public class SensorListener implements SensorEventListener {
 
-    MainActivity mainActivity;
+    GameActivity gameActivity;
 
     String acc = "", gyro = "", proxy = "";
     private float lastForwardX, lastBackwardX, lastForwardY, lastBackwardY;
@@ -16,8 +16,8 @@ public class SensorListener implements SensorEventListener {
     boolean isFullStepTakenX = false, isFullStepTakenY = false;
 
 
-    public SensorListener(MainActivity mainActivity){
-        this.mainActivity = mainActivity;
+    public SensorListener(GameActivity gameActivity){
+        this.gameActivity = gameActivity;
     }
 
     @Override
@@ -28,7 +28,7 @@ public class SensorListener implements SensorEventListener {
             acc = event.values[0] + " X value \n" +
                     event.values[1] + " Y value \n" +
                     event.values[2] + " Z value \n";
-            mainActivity.setsAcc(acc);
+//            gameActivity.setsAcc(acc);
         }
 
         if(event.sensor.getType() == Sensor.TYPE_GYROSCOPE){
@@ -80,7 +80,7 @@ public class SensorListener implements SensorEventListener {
         if(event.sensor.getType() == Sensor.TYPE_PROXIMITY){
 
             proxy = event.values[0] + " The only fkn value leggo";
-            mainActivity.setsProximity(proxy);
+//            gameActivity.setsProximity(proxy);
         }
     }
 
@@ -98,7 +98,8 @@ public class SensorListener implements SensorEventListener {
 
         if(backwardX) {
             if (value > 1.5f) {
-                Toast.makeText(mainActivity, "Step forward", Toast.LENGTH_SHORT).show();
+                gameActivity.moveForward();
+                Toast.makeText(gameActivity, "Step forward", Toast.LENGTH_SHORT).show();
                 forwardX = false;
                 backwardX = false;
                 isFullStepTakenX = true;
@@ -107,7 +108,8 @@ public class SensorListener implements SensorEventListener {
 
         if(forwardX) {
             if (value < -1.5f) {
-                Toast.makeText(mainActivity, "Step back!", Toast.LENGTH_SHORT).show();
+                gameActivity.moveDown();
+                Toast.makeText(gameActivity, "Step back!", Toast.LENGTH_SHORT).show();
                 forwardX = false;
                 backwardX = false;
                 isFullStepTakenX = true;
@@ -129,7 +131,8 @@ public class SensorListener implements SensorEventListener {
 
         if(backwardY) {
             if (value > 1.5f) {
-                Toast.makeText(mainActivity, "Step left", Toast.LENGTH_SHORT).show();
+                gameActivity.moveLeft();
+                Toast.makeText(gameActivity, "Step left", Toast.LENGTH_SHORT).show();
                 forwardY = false;
                 backwardY = false;
                 isFullStepTakenY = true;
@@ -138,7 +141,8 @@ public class SensorListener implements SensorEventListener {
 
         if(forwardY) {
             if (value < -1.5f) {
-                Toast.makeText(mainActivity, "Step right!", Toast.LENGTH_SHORT).show();
+                gameActivity.moveRight();
+                Toast.makeText(gameActivity, "Step right!", Toast.LENGTH_SHORT).show();
                 forwardY = false;
                 backwardY = false;
                 isFullStepTakenY = true;
