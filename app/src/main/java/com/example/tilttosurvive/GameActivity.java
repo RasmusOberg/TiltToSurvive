@@ -31,7 +31,6 @@ public class GameActivity extends Activity {
         gameView = new GameView(this);
         setContentView(gameView);
         sensorListener = new SensorListener(this);
-
         sensorManager = (SensorManager) this.getSystemService(Context.SENSOR_SERVICE);
 
         if (sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER) != null) {
@@ -40,7 +39,6 @@ public class GameActivity extends Activity {
             Toast.makeText(this, sAcc.getName() + " is registered", Toast.LENGTH_SHORT).show();
             isAccPresent = true;
         } else {
-
             isAccPresent = false;
         }
         if(sensorManager.getDefaultSensor(Sensor.TYPE_GYROSCOPE) != null) {
@@ -49,7 +47,6 @@ public class GameActivity extends Activity {
             Toast.makeText(this, sGyroscope.getName() + " is registered", Toast.LENGTH_SHORT).show();
             isGyroPresent = true;
         } else {
-
             isGyroPresent = false;
         }
         if (sensorManager.getDefaultSensor(Sensor.TYPE_PROXIMITY) != null) {

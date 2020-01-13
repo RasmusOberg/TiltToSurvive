@@ -65,11 +65,8 @@ public class SensorListener implements SensorEventListener {
                 stepTakenX(lastBackwardX);
             }
 
-
-
             if(event.values[1] > 1.5f)  {
                 lastForwardY = event.values[1];
-
                 stepTakenY(lastForwardY);
             }
             if(event.values[1] < -1.5f){
@@ -86,8 +83,6 @@ public class SensorListener implements SensorEventListener {
     }
 
     public void stepTakenX(float value){
-
-
         if(value < -1.5f){
             backwardX = true;
         }
@@ -95,7 +90,6 @@ public class SensorListener implements SensorEventListener {
         if(value > 1.5f){
             forwardX = true;
         }
-
 
         if(backwardX) {
             if (value > 1.5f) {
@@ -119,8 +113,6 @@ public class SensorListener implements SensorEventListener {
     }
 
     public void stepTakenY(float value){
-
-
         if(value < -1.5f){
             backwardY = true;
         }

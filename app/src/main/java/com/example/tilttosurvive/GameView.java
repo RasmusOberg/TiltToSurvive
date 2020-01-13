@@ -22,7 +22,6 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
     private int x = 1205; //285
     private int y = 2060; //290
 
-
     private int screenWidth = Resources.getSystem().getDisplayMetrics().widthPixels;
     private int screenHeight = Resources.getSystem().getDisplayMetrics().heightPixels;
 //    private Button btnMove;
@@ -34,8 +33,6 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
 //        characterImage = BitmapFactory.decodeResource(getResources(), R.drawable.ninja2);
         backgroundImage.createScaledBitmap(backgroundImage,screenWidth,screenHeight,false);
 
-
-
         getHolder().addCallback(this);
 
         gameThread = new GameThread(getHolder(), this);
@@ -46,9 +43,10 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
     public void surfaceCreated(SurfaceHolder holder) {
 
 
-//        character = new Character(BitmapFactory.decodeResource(getResources(), R.drawable.gubbe));
+//      character = new Character(BitmapFactory.decodeResource(getResources(), R.drawable.gubbe));
         character = new Character(BitmapFactory.decodeResource(getResources(), R.drawable.ninja2));
 
+        character = new Character(BitmapFactory.decodeResource(getResources(), R.drawable.gubbe));
         gameThread.setRunning(true);
         gameThread.start();
 
@@ -64,8 +62,8 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
     @Override
     public void surfaceDestroyed(SurfaceHolder holder) {
         boolean retry = true;
-        while(retry){
-            try{
+        while (retry) {
+            try {
                 gameThread.setRunning(false);
                 gameThread.join();
 
@@ -76,7 +74,6 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
         }
 
     }
-    //
 
 
     public void toast(){
