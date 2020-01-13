@@ -6,7 +6,9 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.Paint;
 import android.graphics.Point;
+import android.util.Log;
 import android.view.Display;
 import android.view.SurfaceView;
 import android.view.SurfaceHolder;
@@ -14,10 +16,17 @@ import android.widget.Toast;
 
 import androidx.core.content.ContextCompat;
 
+import java.util.Timer;
+import java.util.TimerTask;
+
+import static android.content.ContentValues.TAG;
+
 public class GameView extends SurfaceView implements SurfaceHolder.Callback {
     private GameThread gameThread;
     private Character character;
     private Canvas canvas;
+
+    private Paint paint;
 
     private Bitmap backgroundImage;
     private Bitmap monster;
@@ -29,6 +38,10 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
 
     private int screenWidth = Resources.getSystem().getDisplayMetrics().widthPixels;
     private int screenHeight = Resources.getSystem().getDisplayMetrics().heightPixels;
+    private long time;
+    private boolean firstStep = false, showTimer = false;
+
+    private String time10th, newTime, newTime2;
 
 //    private Button btnMove;
 
@@ -43,6 +56,10 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
 
         gameThread = new GameThread(getHolder(), this);
         setFocusable(true);
+
+        paint = new Paint();
+        paint.setColor(Color.BLACK);
+        paint.setTextSize(200);
     }
 
     @Override
@@ -63,18 +80,26 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
     }
 
     public void moveForward(){
+        if(firstStep == false)
+            startTimer();
         character.moveForward(canvas);
     }
 
     public void moveLeft(){
+        if(firstStep == false)
+            startTimer();
         character.moveLeft(canvas);
     }
 
     public void moveRight(){
+        if(firstStep == false)
+            startTimer();
         character.moveRight(canvas);
     }
 
     public void moveDown(){
+        if(firstStep == false)
+            startTimer();
         character.moveDown(canvas);
     }
 
@@ -98,8 +123,28 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
         }
 
     }
-    //
-
+//
+//    private class timerClass extends implements TimerTask{
+//
+//        @Override
+//        public void run() {
+//
+//        }
+//    }
+//
+    private void startTimer() {
+        firstStep = true;
+//        TimerTask timerTask = new TimerTask() {
+//            @Override
+//            public void run() {
+//
+//            }
+//        };
+//
+//        Timer timer = new Timer(timerTask, 1000l);
+//
+        time = System.currentTimeMillis();
+    }
 
     public void toast(){
         Toast.makeText(getContext(), "Run metoden anropas haha =)", Toast.LENGTH_SHORT).show();
@@ -112,6 +157,10 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
 
     }
 
+    public void showTimer(boolean bool){
+        showTimer = bool;
+    }
+
     @Override
     public void draw(Canvas canvas) {
         super.draw(canvas);
@@ -122,6 +171,13 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
         canvas.drawBitmap(monster3, 300, 300, null);
         canvas.drawBitmap(monster4, 400,400,null);
         canvas.drawBitmap(monster5, 600,600,null);
+
+        time10th = String.valueOf(((System.currentTimeMillis() - time)/1000));
+
+        if (showTimer) {
+            canvas.drawText(time10th, 860, 150, paint);
+            Log.d(TAG, "draw: " + showTimer);
+        }
 
 //        canvas.drawBitmap(characterImage, x, y, null);
 
