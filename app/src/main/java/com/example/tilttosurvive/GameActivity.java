@@ -6,6 +6,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.hardware.Sensor;
 import android.hardware.SensorManager;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.view.Window;
 import android.view.WindowManager;
@@ -18,6 +19,7 @@ public class GameActivity extends Activity {
     SensorListener sensorListener;
     boolean isAccPresent, isGyroPresent, isProximityPresent;
     private GameView gameView;
+    private MediaPlayer mediaPlayer;
 
 
     @Override
@@ -29,7 +31,7 @@ public class GameActivity extends Activity {
         gameView = new GameView(this);
         setContentView(gameView);
         sensorListener = new SensorListener(this);
-
+        mediaPlayer = MediaPlayer.create(this, R.raw.ljud1);
         sensorManager = (SensorManager) this.getSystemService(Context.SENSOR_SERVICE);
 
         if (sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER) != null) {
@@ -59,7 +61,10 @@ public class GameActivity extends Activity {
 
             isProximityPresent = false;
         }
+    }
 
+    public void playSound(){
+        mediaPlayer.start();
     }
 
 

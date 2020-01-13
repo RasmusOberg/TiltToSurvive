@@ -3,6 +3,7 @@ package com.example.tilttosurvive;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
+import android.util.Log;
 
 import java.util.BitSet;
 
@@ -53,28 +54,54 @@ public class Character {
     }
 
     public void moveForward(Canvas canvas){
-        y2 = y2-moveY;
-        canvas.drawBitmap(ninja, x2, y2, null);
+        if(y2 > 30) {
+            y2 = y2 - moveY;
+            canvas.drawBitmap(ninja, x2, y2, null);
+//            Log.w("TEST123", "moveForward x2 = " + x2 + " y2 = " + y2);
+        }
 
 
     }
 
     public void moveLeft(Canvas canvas){
+
+
         x2 = x2-moveX;
         canvas.drawBitmap(ninja, x2, y2, null);
+//        Log.w("TEST123", "moveLeft x2 = " + x2 + " y2 = " + y2);
+
+        if(x2 < 65){
+            x2 = 1205;
+            canvas.drawBitmap(ninja, x2, y2, null);
+        }
+
 
 
     }
     public void moveRight(Canvas canvas){
+
         x2 = x2+moveX;
         canvas.drawBitmap(ninja, x2, y2, null);
+
+        if (x2 >1205){
+            x2 = 65;
+            canvas.drawBitmap(ninja, x2, y2, null);
+        }
+
+        Log.w("TEST123", "moveRight x2 = " + x2 + " y2 = " + y2);
+
 
 
     }
 
     public void moveDown(Canvas canvas){
-        y2 = y2+moveY;
-        canvas.drawBitmap(ninja, x2, y2, null);
+
+        if (y2 < 2350){
+            y2 = y2+moveY;
+            canvas.drawBitmap(ninja, x2, y2, null);
+            Log.w("TEST123", "moveDown x2 = " + x2 + " y2 = " + y2);
+
+        }
 
 
     }
