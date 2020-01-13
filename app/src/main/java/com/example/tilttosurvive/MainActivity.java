@@ -35,9 +35,9 @@ public class MainActivity extends AppCompatActivity {
 
         initialize();
 
-        sensorListener = new SensorListener(this);
-
         sensorManager = (SensorManager) this.getSystemService(Context.SENSOR_SERVICE);
+
+        sensorListener = new SensorListener(this, sensorManager);
 
         if (sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER) != null) {
             sAcc = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
