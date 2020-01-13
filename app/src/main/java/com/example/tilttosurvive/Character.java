@@ -64,12 +64,9 @@ public class Character {
     }
 
     public void moveLeft(Canvas canvas) {
-
-
         x2 = x2 - moveX;
         canvas.drawBitmap(ninja, x2, y2, null);
 //        Log.w("TEST123", "moveLeft x2 = " + x2 + " y2 = " + y2);
-
         if (x2 < 65) {
             x2 = 1205;
             canvas.drawBitmap(ninja, x2, y2, null);
@@ -79,30 +76,21 @@ public class Character {
     }
 
     public void moveRight(Canvas canvas) {
-
         x2 = x2 + moveX;
         canvas.drawBitmap(ninja, x2, y2, null);
-
         if (x2 > 1205) {
             x2 = 65;
             canvas.drawBitmap(ninja, x2, y2, null);
         }
-
         Log.w("TEST123", "moveRight x2 = " + x2 + " y2 = " + y2);
-
-
     }
 
     public void moveDown(Canvas canvas) {
-
         if (y2 < 2350) {
             y2 = y2 + moveY;
             canvas.drawBitmap(ninja, x2, y2, null);
             Log.w("TEST123", "moveDown x2 = " + x2 + " y2 = " + y2);
-
         }
-
-
     }
 
 

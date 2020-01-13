@@ -11,7 +11,6 @@ public class Repo {
     private Dao dao;
     private List<Score> highscores;
 
-
     public Repo(Application application){
         Database db = Database.getInstance(application);
         dao = db.dao();

@@ -40,7 +40,6 @@ public class GameActivity extends Activity {
             Toast.makeText(this, sAcc.getName() + " is registered", Toast.LENGTH_SHORT).show();
             isAccPresent = true;
         } else {
-
             isAccPresent = false;
         }
         if(sensorManager.getDefaultSensor(Sensor.TYPE_GYROSCOPE) != null) {
@@ -49,7 +48,6 @@ public class GameActivity extends Activity {
             Toast.makeText(this, sGyroscope.getName() + " is registered", Toast.LENGTH_SHORT).show();
             isGyroPresent = true;
         } else {
-
             isGyroPresent = false;
         }
         if (sensorManager.getDefaultSensor(Sensor.TYPE_PROXIMITY) != null) {
@@ -58,7 +56,6 @@ public class GameActivity extends Activity {
             Toast.makeText(this, sProximity.getName() + " is registered", Toast.LENGTH_SHORT).show();
             isProximityPresent = true;
         } else {
-
             isProximityPresent = false;
         }
     }
@@ -66,7 +63,6 @@ public class GameActivity extends Activity {
     public void playSound(){
         mediaPlayer.start();
     }
-
 
     public void registerSensors(){
         if(isAccPresent){
