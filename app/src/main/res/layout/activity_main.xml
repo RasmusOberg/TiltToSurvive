@@ -43,7 +43,7 @@
         android:id="@+id/btnStart"
         android:layout_width="180dp"
         android:layout_height="60dp"
-        android:layout_marginTop="270dp"
+        android:layout_marginTop="20dp"
         android:background="@android:color/holo_orange_light"
         android:text="Start game"
         android:textColor="@android:color/tertiary_text_light"
