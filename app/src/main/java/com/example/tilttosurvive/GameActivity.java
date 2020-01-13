@@ -78,21 +78,21 @@ public class GameActivity extends Activity {
         sensorManager.unregisterListener(sensorListener);
     }
 
-    public void moveForward(){
-        gameView.moveForward();
-    }
-
-    public void moveLeft(){
-        gameView.moveLeft();
-    }
-
-    public void moveRight(){
-        gameView.moveRight();
-    }
-
-    public void moveDown(){
-        gameView.moveDown();
-    }
+//    public void moveForward(){
+//        gameView.moveForward();
+//    }
+//
+//    public void moveLeft(){
+//        gameView.moveLeft();
+//    }
+//
+//    public void moveRight(){
+//        gameView.moveRight();
+//    }
+//
+//    public void moveDown(){
+//        gameView.moveDown();
+//    }
 
 
 

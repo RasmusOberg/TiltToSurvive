@@ -21,7 +21,6 @@ public class Character {
     private int screenHeight = Resources.getSystem().getDisplayMetrics().heightPixels;
     private Canvas canvas;
 
-
     public Character(Bitmap ninja){
         this.ninja = ninja;
     }
@@ -34,54 +33,28 @@ public class Character {
         if (x2 < 0 && y2 < 0) {
             x2 -= moveX;
             y2 -= moveY;
-
         }
-
-
-//
-//        if(x2<0 && y2<0){
-//            x2 = screenWidth / 2;
-//            y2 = screenHeight / 2;
-//        }
-//        else {
-//            x2 -= moveX;
-//            y2 -= moveY;
-//            if(x2 > screenWidth - ninja.getWidth() || x2 < 0){
-//                moveX = moveX *-1;
-////                xVelocity = xVelocity*-1;
-//            }
-//            if(y2 > screenHeight - ninja.getHeight() || y2 < 0){
-//                moveY = moveY *-1;
-////                yVelocity = yVelocity*-1;
-//            }
-//        }
     }
+
 
     public void moveForward(Canvas canvas){
         y2 = y2-moveY;
         canvas.drawBitmap(ninja, x2, y2, null);
-
-
     }
 
     public void moveLeft(Canvas canvas){
         x2 = x2-moveX;
         canvas.drawBitmap(ninja, x2, y2, null);
-
-
     }
+
     public void moveRight(Canvas canvas){
         x2 = x2+moveX;
         canvas.drawBitmap(ninja, x2, y2, null);
-
-
     }
 
     public void moveDown(Canvas canvas){
         y2 = y2+moveY;
         canvas.drawBitmap(ninja, x2, y2, null);
-
-
     }
 
 

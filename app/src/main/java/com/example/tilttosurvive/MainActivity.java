@@ -1,45 +1,51 @@
 package com.example.tilttosurvive;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.LiveData;
 
 import android.content.Context;
 import android.content.Intent;
 import android.hardware.Sensor;
 import android.hardware.SensorManager;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.tilttosurvive.Database.Repo;
+import com.example.tilttosurvive.Database.Score;
+
+import java.util.List;
+
 public class MainActivity extends AppCompatActivity {
-
     SensorManager sensorManager;
-
     Sensor sAcc, sGyroscope, sProximity;
-
     SensorListener sensorListener;
-
     boolean isAccPresent, isGyroPresent, isProximityPresent;
-
     float gyroX, gyroY, gyroZ, accX, accY, accZ;
-
+    private static final String TAG = "MainActivity";
     TextView tvAcc, tvGyro, tvProxy;
     private Button btnStart;
     private Button btnInstructions;
     private ImageView image;
     private Button button;
+    private Repo repo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        repo = new Repo(getApplication());
+        repo.insert(new Score("Rasmus", 0.5));
+        List<Score> scores = repo.getHighscores();
+        Log.d(TAG, "onCreate: " + scores.get(0).getScore());
+        Log.d(TAG, "onCreate: " + scores.size());
         initialize();
-
-        sensorListener = new SensorListener(this);
-
+//        sensorListener = new SensorListener(this);
         sensorManager = (SensorManager) this.getSystemService(Context.SENSOR_SERVICE);
 
         if (sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER) != null) {
@@ -141,6 +147,10 @@ public class MainActivity extends AppCompatActivity {
             Intent intent = new Intent(MainActivity.this, InstuctionActivity.class);
             startActivity(intent);
         }
+    }
+
+    public void updateScoreDB(Score score){
+        repo.insert(score);
     }
 }
 

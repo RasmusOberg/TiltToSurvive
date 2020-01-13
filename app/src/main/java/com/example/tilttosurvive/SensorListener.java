@@ -4,19 +4,23 @@ import android.app.Activity;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
+import android.media.MediaPlayer;
 import android.widget.Toast;
 
 public class SensorListener implements SensorEventListener {
 
     GameActivity gameActivity;
-    String acc = "", gyro = "", proxy = "";
+    String acc = "", gyro = "";
+    float proxy;
     private float lastForwardX, lastBackwardX, lastForwardY, lastBackwardY;
     boolean forwardX = false, backwardX = false, forwardY = false, backwardY = false;
     boolean isFullStepTakenX = false, isFullStepTakenY = false;
+    MediaPlayer mediaPlayer;
 
 
     public SensorListener(GameActivity gameActivity){
         this.gameActivity = gameActivity;
+        mediaPlayer = MediaPlayer.create(gameActivity, R.raw.marbles);
     }
 
     @Override
@@ -76,9 +80,13 @@ public class SensorListener implements SensorEventListener {
         }
 
         if(event.sensor.getType() == Sensor.TYPE_PROXIMITY){
-
-            proxy = event.values[0] + " The only fkn value leggo";
+            proxy = event.values[0];
 //            mainActivity.setsProximity(proxy);
+            if(proxy < 1){
+                mediaPlayer.start();
+                Toast.makeText(gameActivity, "Musik spelas!", Toast.LENGTH_SHORT).show();
+            }
+
         }
     }
 
@@ -93,7 +101,7 @@ public class SensorListener implements SensorEventListener {
 
         if(backwardX) {
             if (value > 1.5f) {
-                gameActivity.moveForward();
+//                gameActivity.moveForward();
                 Toast.makeText(gameActivity, "Step forward", Toast.LENGTH_SHORT).show();
                 forwardX = false;
                 backwardX = false;
@@ -103,7 +111,7 @@ public class SensorListener implements SensorEventListener {
 
         if(forwardX) {
             if (value < -1.5f) {
-                gameActivity.moveDown();
+//                gameActivity.moveDown();
                 Toast.makeText(gameActivity, "Step back!", Toast.LENGTH_SHORT).show();
                 forwardX = false;
                 backwardX = false;
@@ -124,7 +132,7 @@ public class SensorListener implements SensorEventListener {
 
         if(backwardY) {
             if (value > 1.5f) {
-                gameActivity.moveLeft();
+//                gameActivity.moveLeft();
                 Toast.makeText(gameActivity, "Step left", Toast.LENGTH_SHORT).show();
                 forwardY = false;
                 backwardY = false;
@@ -134,7 +142,7 @@ public class SensorListener implements SensorEventListener {
 
         if(forwardY) {
             if (value < -1.5f) {
-                gameActivity.moveRight();
+//                gameActivity.moveRight();
                 Toast.makeText(gameActivity, "Step right!", Toast.LENGTH_SHORT).show();
                 forwardY = false;
                 backwardY = false;
