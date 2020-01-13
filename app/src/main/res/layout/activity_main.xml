@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/linearLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
+    android:background="@drawable/bakgrund4"
     android:gravity="center_vertical|center_horizontal"
     tools:context=".MainActivity">
 
@@ -12,26 +13,77 @@
         android:id="@+id/tvAcc"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="25dp"
-        />
+        android:layout_marginTop="252dp"
+        android:layout_marginBottom="25dp"
+        app:layout_constraintBottom_toTopOf="@+id/tvGyro"
+        app:layout_constraintEnd_toStartOf="@+id/tvGyro"
+        app:layout_constraintStart_toStartOf="@+id/tvGyro"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/tvGyro"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginVertical="25dp"
-        />
+        android:layout_marginBottom="50dp"
+        app:layout_constraintBottom_toTopOf="@+id/tvProxy"
+        app:layout_constraintStart_toStartOf="@+id/tvProxy"
+        app:layout_constraintTop_toBottomOf="@+id/tvAcc" />
 
     <TextView
         android:id="@+id/tvProxy"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginVertical="25dp"/>
+        android:layout_marginTop="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.231"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvGyro" />
 
     <Button
-        android:id="@+id/btnTest"
-        android:layout_width="150dp"
-        android:layout_height="70dp"
-        android:text="jaja" />
+        android:id="@+id/btnStart"
+        android:layout_width="180dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="270dp"
+        android:background="@android:color/holo_orange_light"
+        android:text="Start game"
+        android:textColor="@android:color/tertiary_text_light"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView4" />
 
-</LinearLayout>
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="380dp"
+        android:layout_height="42dp"
+        android:layout_marginTop="104dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.494"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/namn" />
+
+    <Button
+        android:id="@+id/btnInstructions"
+        android:layout_width="wrap_content"
+        android:layout_height="25dp"
+        android:layout_marginStart="278dp"
+        android:layout_marginTop="50dp"
+        android:background="@android:color/holo_orange_light"
+        android:text="Instructions"
+        android:textColor="@android:color/tertiary_text_light"
+        android:textSize="12sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnStart" />
+
+    <ImageView
+        android:id="@+id/imageView4"
+        android:layout_width="180dp"
+        android:layout_height="32dp"
+        android:layout_marginTop="100dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView2"
+        app:srcCompat="@drawable/highscore" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
