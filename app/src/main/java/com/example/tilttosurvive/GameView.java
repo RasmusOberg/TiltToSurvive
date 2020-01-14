@@ -31,12 +31,13 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
     private Long time;
     private String time10th;
     private MediaPlayer soundDead;
+    public Bitmap finishPoint;
 
-    private Bitmap monster;
-    private Bitmap monster2;
-    private Bitmap monster3;
-    private Bitmap monster4;
-    private Bitmap monster5;
+//    private Bitmap monster;
+//    private Bitmap monster2;
+//    private Bitmap monster3;
+//    private Bitmap monster4;
+//    private Bitmap monster5;
     //    private Bitmap characterImage;
 
     private ArrayList<Monster> monsterList = new ArrayList<>();
@@ -70,12 +71,28 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
 
         Monster monster1 = new Monster(BitmapFactory.decodeResource(getResources(), R.drawable.monster), 320, 2350);
         monsterList.add(monster1);
-        Monster monster2 = new Monster(BitmapFactory.decodeResource(getResources(), R.drawable.monster2), 910, 2055);
+        Monster monster2 = new Monster(BitmapFactory.decodeResource(getResources(), R.drawable.monster5), 910, 2055);
         monsterList.add(monster2);
         Monster monster3 = new Monster(BitmapFactory.decodeResource(getResources(), R.drawable.monster3), 615, 1760);
         monsterList.add(monster3);
         Monster monster4 = new Monster(BitmapFactory.decodeResource(getResources(), R.drawable.monster4), 1205, 1465);
         monsterList.add(monster4);
+        Monster monster5 = new Monster(BitmapFactory.decodeResource(getResources(), R.drawable.monster), 910, 285);
+        monsterList.add(monster5);
+        Monster monster6 = new Monster(BitmapFactory.decodeResource(getResources(), R.drawable.monster5), 615, 1170);
+        monsterList.add(monster6);
+        Monster monster7 = new Monster(BitmapFactory.decodeResource(getResources(), R.drawable.monster3), 25, 1170);
+        monsterList.add(monster7);
+        Monster monster8 = new Monster(BitmapFactory.decodeResource(getResources(), R.drawable.monster4), 320, 580);
+        monsterList.add(monster8);
+        Monster monster9 = new Monster(BitmapFactory.decodeResource(getResources(), R.drawable.monster5), 320, -10);
+        monsterList.add(monster9);
+        Monster monster10 = new Monster(BitmapFactory.decodeResource(getResources(), R.drawable.monster3), 1205, 580);
+        monsterList.add(monster10);
+        Monster monster11 = new Monster(BitmapFactory.decodeResource(getResources(), R.drawable.monster4), 25, 2055);
+        monsterList.add(monster11);
+
+        finishPoint = BitmapFactory.decodeResource(getResources(), R.drawable.castle);
 
 //        monster = BitmapFactory.decodeResource(getResources(), R.drawable.monster);
 //        monster2 = BitmapFactory.decodeResource(getResources(), R.drawable.monster2);
@@ -154,8 +171,13 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
                 Intent i2 = new Intent(getContext(), MainActivity.class);
                 gameThread.setRunning(false);
                 getContext().startActivity(i2);
-//                canvas.re
             }
+        }
+        if (character.getX() == 25 && character.getY() == -10){
+            Intent intent = new Intent(getContext(), MainActivity.class);
+            gameThread.setRunning(false);
+            getContext().startActivity(intent);
+
         }
     }
 
@@ -172,6 +194,8 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
         for (int i = 0; i < monsterList.size(); i++) {
             monsterList.get(i).draw(canvas);
         }
+
+        canvas.drawBitmap(finishPoint,25,-10,null);
 //        canvas.drawBitmap(monster,50,50,null);
 //        canvas.drawBitmap(monster2, 150, 150, null);
 //        canvas.drawBitmap(monster3, 300, 300, null);
