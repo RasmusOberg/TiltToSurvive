@@ -12,7 +12,6 @@ public class SensorListener implements SensorEventListener {
 
     String acc = "", gyro = "", proxy = "";
     private float lastForwardX, lastBackwardX, lastForwardY, lastBackwardY;
-
     boolean forwardX = false, backwardX = false, forwardY = false, backwardY = false;
     boolean isFullStepTakenX = false, isFullStepTakenY = false;
     private float number;
@@ -66,7 +65,6 @@ public class SensorListener implements SensorEventListener {
 
             if(event.values[1] > 1.0f)  {
                 lastForwardY = event.values[1];
-
                 stepTakenY(lastForwardY);
             }
             if(event.values[1] < -1.0f){
@@ -77,8 +75,11 @@ public class SensorListener implements SensorEventListener {
 
         if(event.sensor.getType() == Sensor.TYPE_PROXIMITY){
             number = event.values[0];
-            if(number < 1){
+            if(number < 1f){
                 gameActivity.playSound();
+                gameActivity.showTimer(true);
+            }else {
+                gameActivity.showTimer(false);
             }
             proxy = event.values[0] + " The only fkn value leggo";
 //            gameActivity.setsProximity(proxy);
