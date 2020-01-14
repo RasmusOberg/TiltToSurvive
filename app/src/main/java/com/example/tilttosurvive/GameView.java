@@ -7,7 +7,9 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.Paint;
 import android.graphics.Point;
+import android.media.MediaPlayer;
 import android.util.Log;
 import android.view.Display;
 import android.view.SurfaceView;
@@ -23,7 +25,13 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
     private Character character;
     private Canvas canvas;
 
+    private boolean firstStep = false, showTimer = false;
+    private Paint paint;
     private Bitmap backgroundImage;
+    private Long time;
+    private String time10th;
+    private MediaPlayer soundDead;
+
     private Bitmap monster;
     private Bitmap monster2;
     private Bitmap monster3;
@@ -45,6 +53,11 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
         backgroundImage.createScaledBitmap(backgroundImage, screenWidth, screenHeight, false);
         getHolder().addCallback(this);
 
+        paint = new Paint();
+        paint.setColor(Color.BLACK);
+        paint.setTextSize(200);
+
+        soundDead = MediaPlayer.create(context, R.raw.dead);
 
         gameThread = new GameThread(getHolder(), this);
         setFocusable(true);
@@ -76,25 +89,39 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
     }
 
     public void moveForward() {
-
+        if (firstStep == false) {
+            startTimer();
+        }
         character.moveForward(canvas);
         checkChar();
+
     }
 
     public void moveLeft() {
+        if (firstStep == false) {
+            startTimer();
+        }
         character.moveLeft(canvas);
         checkChar();
-
     }
 
     public void moveRight() {
+        if (firstStep == false) {
+            startTimer();
+        }
         character.moveRight(canvas);
         checkChar();
     }
 
     public void moveDown() {
+        if (firstStep == false) {
+            startTimer();
+        }
+
         character.moveDown(canvas);
         checkChar();
+
+
     }
 
     @Override
@@ -119,29 +146,21 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
     }
     //
 
-    public void checkChar(){
+    public void checkChar() {
         for (int i = 0; i < monsterList.size(); i++) {
-            if (character.getX() == monsterList.get(i).getX() && character.getY() == monsterList.get(i).getY()){
+            if (character.getX() == monsterList.get(i).getX() && character.getY() == monsterList.get(i).getY()) {
+                soundDead.start();
                 Toast.makeText(getContext(), "DEAD!!!! hahahahaah", Toast.LENGTH_SHORT).show();
-
-                Intent i2  = new Intent(getContext(), MainActivity.class);
+                Intent i2 = new Intent(getContext(), MainActivity.class);
                 gameThread.setRunning(false);
                 getContext().startActivity(i2);
 //                canvas.re
             }
         }
-
-    }
-
-    public void toast() {
-        Toast.makeText(getContext(), "Run metoden anropas haha =)", Toast.LENGTH_SHORT).show();
     }
 
     public void update() {
         character.update();
-
-        // Här kommer Input från sensor tror jag hahahahahhahahahahaha =D
-
     }
 
     @Override
@@ -149,6 +168,10 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
         super.draw(canvas);
         this.canvas = canvas;
         canvas.drawBitmap(backgroundImage, 0, 0, null);
+        character.draw(canvas);
+        for (int i = 0; i < monsterList.size(); i++) {
+            monsterList.get(i).draw(canvas);
+        }
 //        canvas.drawBitmap(monster,50,50,null);
 //        canvas.drawBitmap(monster2, 150, 150, null);
 //        canvas.drawBitmap(monster3, 300, 300, null);
@@ -167,14 +190,27 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
 //
 //        canvas.drawBitmap(characterImage, x, y, null);
 
-        if (canvas != null) {
-            character.draw(canvas);
+        time10th = String.valueOf(((System.currentTimeMillis() - time) / 1000));
 
-            for (int i = 0; i < monsterList.size(); i++) {
-                monsterList.get(i).draw(canvas);
-            }
+        if (showTimer) {
+            canvas.drawText(time10th, 860, 150, paint);
+        }
+
+        if (canvas != null) {
         }
 
         //fuckgit
     }
+
+    private void startTimer() {
+        firstStep = true;
+        time = System.currentTimeMillis();
+    }
+
+    public void showTimer(boolean bool) {
+        showTimer = bool;
+    }
+
+
+
 }

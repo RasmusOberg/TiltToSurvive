@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.hardware.Sensor;
 import android.hardware.SensorManager;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -28,8 +29,8 @@ public class MainActivity extends AppCompatActivity {
 //    TextView tvAcc, tvGyro, tvProxy;
     private Button btnStart;
     private Button btnInstructions;
-//    private ImageView image;
-//    private Button button;
+    private MediaPlayer soundStart;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,11 +77,14 @@ public class MainActivity extends AppCompatActivity {
 //        tvGyro = findViewById(R.id.tvGyro);
 //        tvProxy = findViewById(R.id.tvProxy);
 
+        soundStart = MediaPlayer.create(this, R.raw.new_game);
+
         final Intent i = new Intent(this, GameActivity.class);
         btnStart = findViewById(R.id.btnStart);
         btnStart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                soundStart.start();
                 startActivity(i);
             }
         });

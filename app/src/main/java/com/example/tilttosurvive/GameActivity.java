@@ -13,13 +13,12 @@ import android.view.WindowManager;
 import android.widget.Toast;
 
 public class GameActivity extends Activity {
-
-    SensorManager sensorManager;
-    Sensor sAcc, sGyroscope, sProximity;
-    SensorListener sensorListener;
-    boolean isAccPresent, isGyroPresent, isProximityPresent;
+    private SensorManager sensorManager;
+    private Sensor sAcc, sGyroscope, sProximity;
+    private SensorListener sensorListener;
+    private boolean isAccPresent, isGyroPresent, isProximityPresent;
     private GameView gameView;
-    private MediaPlayer mediaPlayer;
+    private MediaPlayer soundJump, soundDead, soundBgMusic;
 
 
     @Override
@@ -31,7 +30,14 @@ public class GameActivity extends Activity {
         gameView = new GameView(this);
         setContentView(gameView);
         sensorListener = new SensorListener(this);
-        mediaPlayer = MediaPlayer.create(this, R.raw.ljud1);
+
+
+        soundJump = MediaPlayer.create(this, R.raw.jump);
+        soundDead = MediaPlayer.create(this, R.raw.victory);
+        soundBgMusic = MediaPlayer.create(this, R.raw.music);
+        soundBgMusic.start();
+        soundBgMusic.setLooping(true);
+
         sensorManager = (SensorManager) this.getSystemService(Context.SENSOR_SERVICE);
 
         if (sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER) != null) {
@@ -40,7 +46,6 @@ public class GameActivity extends Activity {
             Toast.makeText(this, sAcc.getName() + " is registered", Toast.LENGTH_SHORT).show();
             isAccPresent = true;
         } else {
-
             isAccPresent = false;
         }
         if(sensorManager.getDefaultSensor(Sensor.TYPE_GYROSCOPE) != null) {
@@ -49,7 +54,6 @@ public class GameActivity extends Activity {
             Toast.makeText(this, sGyroscope.getName() + " is registered", Toast.LENGTH_SHORT).show();
             isGyroPresent = true;
         } else {
-
             isGyroPresent = false;
         }
         if (sensorManager.getDefaultSensor(Sensor.TYPE_PROXIMITY) != null) {
@@ -58,15 +62,17 @@ public class GameActivity extends Activity {
             Toast.makeText(this, sProximity.getName() + " is registered", Toast.LENGTH_SHORT).show();
             isProximityPresent = true;
         } else {
-
             isProximityPresent = false;
         }
     }
 
-    public void playSound(){
-        mediaPlayer.start();
+    public void playSoundJump(){
+        soundJump.start();
     }
 
+    public void playSoundDead(){
+        soundDead.start();
+    }
 
     public void registerSensors(){
         if(isAccPresent){
@@ -90,29 +96,40 @@ public class GameActivity extends Activity {
 
     public void moveForward(){
         gameView.moveForward();
+        playSoundJump();
     }
 
     public void moveLeft(){
         gameView.moveLeft();
+        playSoundJump();
+
     }
 
     public void moveRight(){
         gameView.moveRight();
+        playSoundJump();
     }
 
     public void moveDown(){
         gameView.moveDown();
+        playSoundJump();
     }
 
     @Override
     protected void onPause() {
         super.onPause();
         unRegisterSensors();
+        soundBgMusic.stop();
     }
 
     @Override
     protected void onResume() {
         super.onResume();
         registerSensors();
+        soundBgMusic.start();
+    }
+
+    public void showTimer(Boolean b){
+        gameView.showTimer(b);
     }
 }
