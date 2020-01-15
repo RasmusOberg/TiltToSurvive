@@ -94,6 +94,7 @@ public class Character {
             x2 = 25;
             canvas.drawBitmap(ninja, x2, y2, null);
         }
+        //test
 
         Log.w("TEST123", "moveRight x2 = " + x2 + " y2 = " + y2);
         Log.w("TEST123", "ninja  widht = " + ninja.getWidth() + " height = " + ninja.getHeight());
