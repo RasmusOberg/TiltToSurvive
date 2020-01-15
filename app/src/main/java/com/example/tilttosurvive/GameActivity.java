@@ -70,7 +70,7 @@ public class GameActivity extends Activity {
     }
 
     public void reDraw(){
-        gameView.drawCharacter();
+        gameView.showMonsters(true);
     }
 
     public void registerSensors(){
