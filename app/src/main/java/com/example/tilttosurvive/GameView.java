@@ -70,7 +70,7 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
         gameThread.start();
     }
 
-    public void drawCharacter(){
+    public void  drawCharacter(){
         character = new Character(BitmapFactory.decodeResource(getResources(), R.drawable.ninja2));
         finishPoint = BitmapFactory.decodeResource(getResources(), R.drawable.castle);
     }
@@ -175,8 +175,11 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
                     m_Text = input.getText().toString();
-                    Log.d(TAG, "onClick: " + m_Text + " " + time10th);
-                    repo.insert(new Score(m_Text, Double.parseDouble(time10th)));
+                    Score score = new Score(m_Text, Double.parseDouble(time10th));
+                    repo.insert(score);
+
+                    Log.d(TAG, "TEST: " + "Namn " + score.getName() + " Score = " +score.getScore());
+
                     Intent intent = new Intent(getContext(), MainActivity.class);
                     gameThread.setRunning(false);
                     getContext().startActivity(intent);

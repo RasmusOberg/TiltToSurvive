@@ -16,27 +16,50 @@ public class SensorListener implements SensorEventListener {
     boolean forwardX = false, backwardX = false, forwardY = false, backwardY = false;
     boolean isFullStepTakenX = false, isFullStepTakenY = false;
     private float number;
+    private int shakeThreshold = 13;
 
 
-
-    public SensorListener(GameActivity gameActivity){
+    public SensorListener(GameActivity gameActivity) {
         this.gameActivity = gameActivity;
     }
 
     @Override
     public void onSensorChanged(SensorEvent event) {
-        if(event.sensor.getType() == Sensor.TYPE_ACCELEROMETER){
-            if (event.values[0] > 1){
+
+
+        // SHAKER
+
+        float x, y, z, lastX = 0, lastY = 0, lastZ = 0;
+
+        if (event.sensor.getType() == Sensor.TYPE_ACCELEROMETER) {
+            x = event.values[0];
+            y = event.values[1];
+            z = event.values[2];
+            float deltaX = Math.abs(lastX - x);
+            float deltaY = Math.abs(lastY - y);
+            float deltaZ = Math.abs(lastZ - z);
+
+
+            if ((deltaX > shakeThreshold && deltaY > shakeThreshold)
+                    || (deltaX > shakeThreshold && deltaZ > shakeThreshold)
+                    || (deltaY > shakeThreshold && deltaZ > shakeThreshold)) {
+
                 gameActivity.reDraw();
             }
         }
 
-        if(event.sensor.getType() == Sensor.TYPE_GYROSCOPE){
+        if (event.sensor.getType() == Sensor.TYPE_ACCELEROMETER) {
+            if (event.values[0] > 1) {
+                gameActivity.reDraw();
+            }
+        }
+
+        if (event.sensor.getType() == Sensor.TYPE_GYROSCOPE) {
 
 //            x är fram och tillbaka
 //            y är höger och vänster
 
-            if(event.values[0] < 0.4f && event.values[0] > -0.4f && isFullStepTakenX){
+            if (event.values[0] < 0.4f && event.values[0] > -0.4f && isFullStepTakenX) {
                 isFullStepTakenX = false;
                 forwardX = false;
                 backwardX = false;
@@ -44,11 +67,11 @@ public class SensorListener implements SensorEventListener {
                 backwardY = false;
             }
 
-            if(isFullStepTakenX){
+            if (isFullStepTakenX) {
                 return;
             }
 
-            if(event.values[1] < 0.4f && event.values[1] > -0.4f && isFullStepTakenY){
+            if (event.values[1] < 0.4f && event.values[1] > -0.4f && isFullStepTakenY) {
                 isFullStepTakenY = false;
                 forwardX = false;
                 backwardX = false;
@@ -56,36 +79,36 @@ public class SensorListener implements SensorEventListener {
                 backwardY = false;
             }
 
-            if(isFullStepTakenY){
+            if (isFullStepTakenY) {
                 return;
             }
 
-            if(event.values[0] > 1.0f)  {
+            if (event.values[0] > 1.0f) {
                 lastForwardX = event.values[0];
                 stepTakenX(lastForwardX);
             }
-            if(event.values[0] < -1.0f){
+            if (event.values[0] < -1.0f) {
                 lastBackwardX = event.values[0];
                 stepTakenX(lastBackwardX);
             }
 
-            if(event.values[1] > 1.0f)  {
+            if (event.values[1] > 1.0f) {
                 lastForwardY = event.values[1];
 
                 stepTakenY(lastForwardY);
             }
-            if(event.values[1] < -1.0f){
+            if (event.values[1] < -1.0f) {
                 lastBackwardY = event.values[1];
                 stepTakenY(lastBackwardY);
             }
         }
 
-        if(event.sensor.getType() == Sensor.TYPE_PROXIMITY){
+        if (event.sensor.getType() == Sensor.TYPE_PROXIMITY) {
             number = event.values[0];
-            if(number < 1){
+            if (number < 1) {
 //                gameActivity.playSound();
                 gameActivity.showTimer(true);
-            } else{
+            } else {
                 gameActivity.showTimer(false);
             }
             proxy = event.values[0] + " The only fkn value leggo";
@@ -93,19 +116,19 @@ public class SensorListener implements SensorEventListener {
         }
     }
 
-    public void stepTakenX(float value){
+    public void stepTakenX(float value) {
 
 
-        if(value < -1.0f){
+        if (value < -1.0f) {
             backwardX = true;
         }
 
-        if(value > 1.0f ){
+        if (value > 1.0f) {
             forwardX = true;
         }
 
 
-        if(backwardX) {
+        if (backwardX) {
             if (value > 1.0f) {
                 gameActivity.moveForward();
 //                Toast.makeText(gameActivity, "Step forward", Toast.LENGTH_SHORT).show();
@@ -117,7 +140,7 @@ public class SensorListener implements SensorEventListener {
             }
         }
 
-        if(forwardX) {
+        if (forwardX) {
             if (value < -1.0f) {
                 gameActivity.moveDown();
 //                Toast.makeText(gameActivity, "Step back!", Toast.LENGTH_SHORT).show();
@@ -130,19 +153,19 @@ public class SensorListener implements SensorEventListener {
         }
     }
 
-    public void stepTakenY(float value){
+    public void stepTakenY(float value) {
 
 
-        if(value < -1.0f){
+        if (value < -1.0f) {
             backwardY = true;
         }
 
-        if(value > 1.0f){
+        if (value > 1.0f) {
             forwardY = true;
         }
 
 
-        if(backwardY) {
+        if (backwardY) {
             if (value > 1.0f) {
                 gameActivity.moveLeft();
 //                Toast.makeText(gameActivity, "Step left", Toast.LENGTH_SHORT).show();
@@ -154,7 +177,7 @@ public class SensorListener implements SensorEventListener {
             }
         }
 
-        if(forwardY) {
+        if (forwardY) {
             if (value < -1.0f) {
                 gameActivity.moveRight();
 //                Toast.makeText(gameActivity, "Step right!", Toast.LENGTH_SHORT).show();

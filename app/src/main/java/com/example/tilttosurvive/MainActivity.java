@@ -42,6 +42,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         initialize();
+        getHighScores();
     }
 
 //        sensorListener = new SensorListener(this);
@@ -82,17 +83,7 @@ public class MainActivity extends AppCompatActivity {
         tvHighScore = findViewById(R.id.tvHighScore);
 
         repo = new Repo(getApplication());
-        repo.insert(new Score("Roland", 20));
-        ArrayList<Score> list = (ArrayList)repo.getHighscores();
-        Log.w("TEST123","List Size: " + list.size());
-
-        String scores = "";
-        for (int i = 0; i < list.size(); i ++){
-            scores += list.get(i).getName() + " - " + list.get(i).getScore() + "\n";
-
-        }
-
-        tvHighScore.setText(scores);
+        //repo.insert(new Score("Roland", 20));
 
         soundStart = MediaPlayer.create(this, R.raw.new_game);
 
@@ -108,6 +99,17 @@ public class MainActivity extends AppCompatActivity {
 
         btnInstructions = findViewById(R.id.btnInstructions);
         btnInstructions.setOnClickListener(new InstructionsListener());
+    }
+
+    public void getHighScores(){
+        ArrayList<Score> list = (ArrayList)repo.getHighscores();
+        Log.w("TEST123","List Size: " + list.size());
+        String scores = "";
+        for (int i = 0; i < list.size(); i ++){
+            scores += list.get(i).getName() + " - " + list.get(i).getScore() + "\n";
+
+        }
+        tvHighScore.setText(scores);
     }
 
 //    public void setsAcc(String string){
