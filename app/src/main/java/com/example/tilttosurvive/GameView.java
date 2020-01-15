@@ -56,7 +56,6 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
         paint.setTextSize(200);
         soundDead = MediaPlayer.create(context, R.raw.dead);
         repo = new Repo(application);
-
         gameThread = new GameThread(getHolder(), this);
         setFocusable(true);
     }
@@ -205,6 +204,7 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
         this.canvas = canvas;
         canvas.drawBitmap(backgroundImage, 0, 0, null);
         character.draw(canvas);
+
         for (int i = 0; i < monsterList.size(); i++) {
             monsterList.get(i).draw(canvas);
         }
