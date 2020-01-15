@@ -70,6 +70,7 @@ public class GameActivity extends Activity {
     }
 
     public void reDraw(){
+        gameView.createBackground();
         gameView.drawCharacter();
     }
 

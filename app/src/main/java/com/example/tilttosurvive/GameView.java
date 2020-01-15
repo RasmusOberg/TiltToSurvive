@@ -47,18 +47,19 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
 
     public GameView(Context context, Application application) {
         super(context);
-        backgroundImage = BitmapFactory.decodeResource(getResources(), R.drawable.bakgrund4);
-//        characterImage = BitmapFactory.decodeResource(getResources(), R.drawable.ninja2);
-        backgroundImage.createScaledBitmap(backgroundImage, screenWidth, screenHeight, false);
         getHolder().addCallback(this);
         paint = new Paint();
         paint.setColor(Color.BLACK);
         paint.setTextSize(200);
         soundDead = MediaPlayer.create(context, R.raw.dead);
         repo = new Repo(application);
-
         gameThread = new GameThread(getHolder(), this);
         setFocusable(true);
+    }
+
+    public void createBackground(){
+        backgroundImage = BitmapFactory.decodeResource(getResources(), R.drawable.bakgrund4);
+        backgroundImage.createScaledBitmap(backgroundImage, screenWidth, screenHeight, false);
     }
 
     @Override
@@ -70,7 +71,7 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
         gameThread.start();
     }
 
-    public void  drawCharacter(){
+    public void drawCharacter(){
         character = new Character(BitmapFactory.decodeResource(getResources(), R.drawable.ninja2));
         finishPoint = BitmapFactory.decodeResource(getResources(), R.drawable.castle);
     }
