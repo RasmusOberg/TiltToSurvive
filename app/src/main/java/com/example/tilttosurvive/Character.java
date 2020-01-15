@@ -20,17 +20,23 @@ public class Character {
 //    private int yVelocity = 5;
     private int screenWidth = Resources.getSystem().getDisplayMetrics().widthPixels;
     private int screenHeight = Resources.getSystem().getDisplayMetrics().heightPixels;
+    private boolean ableToMove;
 
     public Character(Bitmap ninja) {
         this.ninja = ninja;
+        ableToMove = true;
     }
 
     public void draw(Canvas canvas) {
         canvas.drawBitmap(ninja, x2, y2, null);
     }
 
+    public void setAbleToMove(boolean bool){
+        ableToMove = bool;
+    }
+
     public void update() {
-        if (x2 < 0 && y2 < 0) {
+        if (x2 < 0 && y2 < 0 && ableToMove) {
             x2 -= moveX;
             y2 -= moveY;
         }
@@ -58,7 +64,6 @@ public class Character {
             y2 = y2 - moveY;
             canvas.drawBitmap(ninja, x2, y2, null);
 //            Log.w("TEST123", "moveForward x2 = " + x2 + " y2 = " + y2);
-
             Log.w("TEST123", "ninja  widht = " + ninja.getWidth() + " height = " + ninja.getHeight());
 
         }
@@ -82,7 +87,6 @@ public class Character {
     }
 
     public void moveRight(Canvas canvas) {
-
         x2 = x2 + moveX;
         canvas.drawBitmap(ninja, x2, y2, null);
 

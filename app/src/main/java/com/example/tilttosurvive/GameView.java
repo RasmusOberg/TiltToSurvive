@@ -24,11 +24,12 @@ import java.util.ArrayList;
 import androidx.appcompat.app.AlertDialog;
 import androidx.core.content.ContextCompat;
 
+import static android.content.ContentValues.TAG;
+
 public class GameView extends SurfaceView implements SurfaceHolder.Callback {
     private GameThread gameThread;
     private Character character;
     private Canvas canvas;
-
     private boolean firstStep = false, showTimer = false;
     private Paint paint;
     private Bitmap backgroundImage;
@@ -37,16 +38,7 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
     private MediaPlayer soundDead;
     public Bitmap finishPoint;
     private String m_Text = "";
-
-//    private Bitmap monster;
-//    private Bitmap monster2;
-//    private Bitmap monster3;
-//    private Bitmap monster4;
-//    private Bitmap monster5;
-    //    private Bitmap characterImage;
-
     private ArrayList<Monster> monsterList = new ArrayList<>();
-
     private int screenWidth = Resources.getSystem().getDisplayMetrics().widthPixels;
     private int screenHeight = Resources.getSystem().getDisplayMetrics().heightPixels;
 
@@ -58,11 +50,9 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
 //        characterImage = BitmapFactory.decodeResource(getResources(), R.drawable.ninja2);
         backgroundImage.createScaledBitmap(backgroundImage, screenWidth, screenHeight, false);
         getHolder().addCallback(this);
-
         paint = new Paint();
         paint.setColor(Color.BLACK);
         paint.setTextSize(200);
-
         soundDead = MediaPlayer.create(context, R.raw.dead);
 
         gameThread = new GameThread(getHolder(), this);
@@ -172,20 +162,20 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
             }
         }
         if (character.getX() == 25 && character.getY() == -10){
+            character.setAbleToMove(false);
             AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
             builder.setTitle("Title");
 
-// Set up the input
+            // Set up the input
             final EditText input = new EditText(getContext());
-// Specify the type of input expected; this, for example, sets the input as a password, and will mask the text
-            input.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
+            input.setInputType(InputType.TYPE_CLASS_TEXT);
             builder.setView(input);
 
-// Set up the buttons
             builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
                     m_Text = input.getText().toString();
+                    Log.d(TAG, "onClick: " + m_Text + " " + time10th);
                     Intent intent = new Intent(getContext(), MainActivity.class);
                     gameThread.setRunning(false);
                     getContext().startActivity(intent);
@@ -200,7 +190,6 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
                     getContext().startActivity(intent);
                 }
             });
-
             builder.show();
         }
     }
