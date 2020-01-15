@@ -67,7 +67,6 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
     public void surfaceCreated(SurfaceHolder holder) {
         drawCharacter();
         drawMonsters();
-
         gameThread.setRunning(true);
         gameThread.start();
     }

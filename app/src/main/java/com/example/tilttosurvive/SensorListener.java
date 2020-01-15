@@ -16,7 +16,7 @@ public class SensorListener implements SensorEventListener {
     boolean forwardX = false, backwardX = false, forwardY = false, backwardY = false;
     boolean isFullStepTakenX = false, isFullStepTakenY = false;
     private float number;
-    private int shakeThreshold = 13;
+    private int shakeThreshold = 20;
 
 
     public SensorListener(GameActivity gameActivity) {
