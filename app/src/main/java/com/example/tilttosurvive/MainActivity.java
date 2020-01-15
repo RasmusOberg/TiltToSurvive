@@ -8,11 +8,14 @@ import android.hardware.Sensor;
 import android.hardware.SensorManager;
 import android.media.MediaPlayer;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 //
@@ -27,8 +30,11 @@ public class MainActivity extends AppCompatActivity {
 //    float gyroX, gyroY, gyroZ, accX, accY, accZ;
 //
 //    TextView tvAcc, tvGyro, tvProxy;
+
+    private Repo repo;
     private Button btnStart;
     private Button btnInstructions;
+    private TextView tvHighScore;
     private MediaPlayer soundStart;
 
     @Override
@@ -73,6 +79,20 @@ public class MainActivity extends AppCompatActivity {
 //        tvAcc = findViewById(R.id.tvAcc);
 //        tvGyro = findViewById(R.id.tvGyro);
 //        tvProxy = findViewById(R.id.tvProxy);
+        tvHighScore = findViewById(R.id.tvHighScore);
+
+        repo = new Repo(getApplication());
+        repo.insert(new Score("Roland", 20));
+        ArrayList<Score> list = (ArrayList)repo.getHighscores();
+        Log.w("TEST123","List Size: " + list.size());
+
+        String scores = "";
+        for (int i = 0; i < list.size(); i ++){
+            scores += list.get(i).getName() + " - " + list.get(i).getScore() + "\n";
+
+        }
+
+        tvHighScore.setText(scores);
 
         soundStart = MediaPlayer.create(this, R.raw.new_game);
 
