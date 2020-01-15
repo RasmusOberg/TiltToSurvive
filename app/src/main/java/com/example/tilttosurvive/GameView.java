@@ -1,6 +1,7 @@
 package com.example.tilttosurvive;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
@@ -10,14 +11,17 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Point;
 import android.media.MediaPlayer;
+import android.text.InputType;
 import android.util.Log;
 import android.view.Display;
 import android.view.SurfaceView;
 import android.view.SurfaceHolder;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import java.util.ArrayList;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.core.content.ContextCompat;
 
 public class GameView extends SurfaceView implements SurfaceHolder.Callback {
@@ -32,6 +36,7 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
     private String time10th;
     private MediaPlayer soundDead;
     public Bitmap finishPoint;
+    private String m_Text = "";
 
 //    private Bitmap monster;
 //    private Bitmap monster2;
@@ -111,7 +116,6 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
         }
         character.moveForward(canvas);
         checkChar();
-
     }
 
     public void moveLeft() {
@@ -134,11 +138,8 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
         if (firstStep == false) {
             startTimer();
         }
-
         character.moveDown(canvas);
         checkChar();
-
-
     }
 
     @Override
@@ -153,15 +154,12 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
             try {
                 gameThread.setRunning(false);
                 gameThread.join();
-
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
             retry = false;
         }
-
     }
-    //
 
     public void checkChar() {
         for (int i = 0; i < monsterList.size(); i++) {
@@ -178,6 +176,30 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
             gameThread.setRunning(false);
             getContext().startActivity(intent);
 
+            AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+            builder.setTitle("Title");
+
+// Set up the input
+            final EditText input = new EditText(getContext());
+// Specify the type of input expected; this, for example, sets the input as a password, and will mask the text
+            input.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
+            builder.setView(input);
+
+// Set up the buttons
+            builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    m_Text = input.getText().toString();
+                }
+            });
+            builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    dialog.cancel();
+                }
+            });
+
+            builder.show();
         }
     }
 

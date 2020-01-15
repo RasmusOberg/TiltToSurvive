@@ -23,7 +23,6 @@ public class Character {
 
     public Character(Bitmap ninja) {
         this.ninja = ninja;
-
     }
 
     public void draw(Canvas canvas) {
@@ -35,6 +34,7 @@ public class Character {
             x2 -= moveX;
             y2 -= moveY;
         }
+    }
 //
 //        if(x2<0 && y2<0){
 //            x2 = screenWidth / 2;
@@ -52,7 +52,6 @@ public class Character {
 ////                yVelocity = yVelocity*-1;
 //            }
 //        }
-    }
 
     public void moveForward(Canvas canvas) {
         if (y2 > 30) {
@@ -68,8 +67,6 @@ public class Character {
     }
 
     public void moveLeft(Canvas canvas) {
-
-
         x2 = x2 - moveX;
         canvas.drawBitmap(ninja, x2, y2, null);
 //        Log.w("TEST123", "moveLeft x2 = " + x2 + " y2 = " + y2);

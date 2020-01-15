@@ -31,15 +31,14 @@ public class MainActivity extends AppCompatActivity {
     private Button btnInstructions;
     private MediaPlayer soundStart;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         initialize();
+    }
 
 //        sensorListener = new SensorListener(this);
-
 //        sensorManager = (SensorManager) this.getSystemService(Context.SENSOR_SERVICE);
 //
 //        if (sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER) != null) {
@@ -69,8 +68,6 @@ public class MainActivity extends AppCompatActivity {
 //
 //            isProximityPresent = false;
 //        }
-
-    }
 
     public void initialize() {
 //        tvAcc = findViewById(R.id.tvAcc);
@@ -104,7 +101,6 @@ public class MainActivity extends AppCompatActivity {
 //    public void setsProximity(String string){
 //        tvProxy.setText(string);
 //    }
-
 
 //    public void registerSensors(){
 //        if(isAccPresent){

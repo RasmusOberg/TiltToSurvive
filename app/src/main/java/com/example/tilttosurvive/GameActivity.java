@@ -20,24 +20,19 @@ public class GameActivity extends Activity {
     private GameView gameView;
     private MediaPlayer soundJump, soundDead, soundBgMusic;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         this.requestWindowFeature(Window.FEATURE_NO_TITLE);
-
         gameView = new GameView(this);
         setContentView(gameView);
         sensorListener = new SensorListener(this);
-
-
         soundJump = MediaPlayer.create(this, R.raw.jump);
         soundDead = MediaPlayer.create(this, R.raw.victory);
         soundBgMusic = MediaPlayer.create(this, R.raw.music);
         soundBgMusic.start();
         soundBgMusic.setLooping(true);
-
         sensorManager = (SensorManager) this.getSystemService(Context.SENSOR_SERVICE);
 
         if (sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER) != null) {
@@ -102,7 +97,6 @@ public class GameActivity extends Activity {
     public void moveLeft(){
         gameView.moveLeft();
         playSoundJump();
-
     }
 
     public void moveRight(){

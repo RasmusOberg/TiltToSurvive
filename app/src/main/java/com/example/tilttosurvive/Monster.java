@@ -18,9 +18,7 @@ public class Monster {
     }
 
     public void draw(Canvas canvas){
-
         canvas.drawBitmap(monster, x, y, null);
-
     }
 
     public Bitmap getMonster() {
