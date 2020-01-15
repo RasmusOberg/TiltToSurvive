@@ -172,10 +172,6 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
             }
         }
         if (character.getX() == 25 && character.getY() == -10){
-            Intent intent = new Intent(getContext(), MainActivity.class);
-            gameThread.setRunning(false);
-            getContext().startActivity(intent);
-
             AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
             builder.setTitle("Title");
 
@@ -190,12 +186,18 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
                     m_Text = input.getText().toString();
+                    Intent intent = new Intent(getContext(), MainActivity.class);
+                    gameThread.setRunning(false);
+                    getContext().startActivity(intent);
                 }
             });
             builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
                     dialog.cancel();
+                    Intent intent = new Intent(getContext(), MainActivity.class);
+                    gameThread.setRunning(false);
+                    getContext().startActivity(intent);
                 }
             });
 
