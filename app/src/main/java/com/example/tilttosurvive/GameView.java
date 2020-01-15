@@ -165,7 +165,7 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
         if (character.getX() == 25 && character.getY() == -10){
             character.setAbleToMove(false);
             AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
-            builder.setTitle("Title");
+            builder.setTitle("Highscore!");
 
             // Set up the input
             final EditText input = new EditText(getContext());
