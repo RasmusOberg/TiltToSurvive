@@ -48,6 +48,7 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
     public GameView(Context context, Application application) {
         super(context);
         getHolder().addCallback(this);
+        createBackground();
         paint = new Paint();
         paint.setColor(Color.BLACK);
         paint.setTextSize(200);
