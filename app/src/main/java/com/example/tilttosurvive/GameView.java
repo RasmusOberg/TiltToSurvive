@@ -1,5 +1,6 @@
 package com.example.tilttosurvive;
 
+import android.app.Application;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -41,10 +42,9 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
     private ArrayList<Monster> monsterList = new ArrayList<>();
     private int screenWidth = Resources.getSystem().getDisplayMetrics().widthPixels;
     private int screenHeight = Resources.getSystem().getDisplayMetrics().heightPixels;
+    private Repo repo;
 
-//    private Button btnMove;
-
-    public GameView(Context context) {
+    public GameView(Context context, Application application) {
         super(context);
         backgroundImage = BitmapFactory.decodeResource(getResources(), R.drawable.bakgrund4);
 //        characterImage = BitmapFactory.decodeResource(getResources(), R.drawable.ninja2);
@@ -54,6 +54,7 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
         paint.setColor(Color.BLACK);
         paint.setTextSize(200);
         soundDead = MediaPlayer.create(context, R.raw.dead);
+        repo = new Repo(application);
 
         gameThread = new GameThread(getHolder(), this);
         setFocusable(true);
@@ -176,6 +177,7 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
                 public void onClick(DialogInterface dialog, int which) {
                     m_Text = input.getText().toString();
                     Log.d(TAG, "onClick: " + m_Text + " " + time10th);
+                    repo.insert(new Score(m_Text, Double.parseDouble(time10th)));
                     Intent intent = new Intent(getContext(), MainActivity.class);
                     gameThread.setRunning(false);
                     getContext().startActivity(intent);
@@ -209,24 +211,6 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
         }
 
         canvas.drawBitmap(finishPoint,25,-10,null);
-//        canvas.drawBitmap(monster,50,50,null);
-//        canvas.drawBitmap(monster2, 150, 150, null);
-//        canvas.drawBitmap(monster3, 300, 300, null);
-//        canvas.drawBitmap(monster4, 400,400,null);
-//        canvas.drawBitmap(monster5, 600,600,null);
-//
-//
-//
-//        Log.w("TEST123", "Monster 1  widht = " + monster.getWidth() + " height = " + monster.getHeight());
-//        Log.w("TEST123", "Monster 2  widht = " + monster2.getWidth() + " height = " + monster2.getHeight());
-//        Log.w("TEST123", "Monster 3  widht = " + monster3.getWidth() + " height = " + monster3.getHeight());
-//        Log.w("TEST123", "Monster 4  widht = " + monster4.getWidth() + " height = " + monster4.getHeight());
-//        Log.w("TEST123", "Monster 5  widht = " + monster5.getWidth() + " height = " + monster5.getHeight());
-//
-//
-//
-//        canvas.drawBitmap(characterImage, x, y, null);
-
         time10th = String.valueOf(((System.currentTimeMillis() - time) / 1000));
 
         if (showTimer) {
