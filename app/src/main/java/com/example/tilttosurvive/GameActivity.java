@@ -69,6 +69,10 @@ public class GameActivity extends Activity {
         soundDead.start();
     }
 
+    public void reDraw(){
+        gameView.drawCharacter();
+    }
+
     public void registerSensors(){
         if(isAccPresent){
             sensorManager.registerListener(sensorListener, sAcc, SensorManager.SENSOR_DELAY_NORMAL);

@@ -18,6 +18,7 @@ import android.view.Display;
 import android.view.SurfaceView;
 import android.view.SurfaceHolder;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -62,9 +63,19 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
 
     @Override
     public void surfaceCreated(SurfaceHolder holder) {
-//        character = new Character(BitmapFactory.decodeResource(getResources(), R.drawable.gubbe));
-        character = new Character(BitmapFactory.decodeResource(getResources(), R.drawable.ninja2));
+        drawCharacter();
+        drawMonsters();
 
+        gameThread.setRunning(true);
+        gameThread.start();
+    }
+
+    public void drawCharacter(){
+        character = new Character(BitmapFactory.decodeResource(getResources(), R.drawable.ninja2));
+        finishPoint = BitmapFactory.decodeResource(getResources(), R.drawable.castle);
+    }
+
+    public void drawMonsters(){
         Monster monster1 = new Monster(BitmapFactory.decodeResource(getResources(), R.drawable.monster), 320, 2350);
         monsterList.add(monster1);
         Monster monster2 = new Monster(BitmapFactory.decodeResource(getResources(), R.drawable.monster5), 910, 2055);
@@ -87,18 +98,6 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
         monsterList.add(monster10);
         Monster monster11 = new Monster(BitmapFactory.decodeResource(getResources(), R.drawable.monster4), 25, 2055);
         monsterList.add(monster11);
-
-        finishPoint = BitmapFactory.decodeResource(getResources(), R.drawable.castle);
-
-//        monster = BitmapFactory.decodeResource(getResources(), R.drawable.monster);
-//        monster2 = BitmapFactory.decodeResource(getResources(), R.drawable.monster2);
-//        monster3 = BitmapFactory.decodeResource(getResources(), R.drawable.monster3);
-//        monster4 = BitmapFactory.decodeResource(getResources(), R.drawable.monster4);
-//        monster5 = BitmapFactory.decodeResource(getResources(), R.drawable.monster5);
-
-        gameThread.setRunning(true);
-        gameThread.start();
-
     }
 
     public void moveForward() {

@@ -25,6 +25,11 @@ public class SensorListener implements SensorEventListener {
 
     @Override
     public void onSensorChanged(SensorEvent event) {
+        if(event.sensor.getType() == Sensor.TYPE_ACCELEROMETER){
+            if (event.values[0] > 1){
+                gameActivity.reDraw();
+            }
+        }
 
         if(event.sensor.getType() == Sensor.TYPE_GYROSCOPE){
 
