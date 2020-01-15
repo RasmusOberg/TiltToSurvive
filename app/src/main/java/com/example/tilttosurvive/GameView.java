@@ -12,6 +12,7 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Point;
 import android.media.MediaPlayer;
+import android.os.CountDownTimer;
 import android.text.InputType;
 import android.util.Log;
 import android.view.Display;
@@ -32,7 +33,7 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
     private GameThread gameThread;
     private Character character;
     private Canvas canvas;
-    private boolean firstStep = false, showTimer = false;
+    private boolean firstStep = false, showTimer = false, showMonsters;
     private Paint paint;
     private Bitmap backgroundImage;
     private Long time;
@@ -47,36 +48,32 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
 
     public GameView(Context context, Application application) {
         super(context);
+        backgroundImage = BitmapFactory.decodeResource(getResources(), R.drawable.bakgrund4);
+//        characterImage = BitmapFactory.decodeResource(getResources(), R.drawable.ninja2);
+        backgroundImage.createScaledBitmap(backgroundImage, screenWidth, screenHeight, false);
         getHolder().addCallback(this);
-        createBackground();
         paint = new Paint();
         paint.setColor(Color.BLACK);
         paint.setTextSize(200);
         soundDead = MediaPlayer.create(context, R.raw.dead);
         repo = new Repo(application);
+
+        createMonsters();
+
         gameThread = new GameThread(getHolder(), this);
         setFocusable(true);
-    }
-
-    public void createBackground(){
-        backgroundImage = BitmapFactory.decodeResource(getResources(), R.drawable.bakgrund4);
-        backgroundImage.createScaledBitmap(backgroundImage, screenWidth, screenHeight, false);
     }
 
     @Override
     public void surfaceCreated(SurfaceHolder holder) {
         drawCharacter();
         drawMonsters();
+
         gameThread.setRunning(true);
         gameThread.start();
     }
 
-    public void drawCharacter(){
-        character = new Character(BitmapFactory.decodeResource(getResources(), R.drawable.ninja2));
-        finishPoint = BitmapFactory.decodeResource(getResources(), R.drawable.castle);
-    }
-
-    public void drawMonsters(){
+    public void createMonsters(){
         Monster monster1 = new Monster(BitmapFactory.decodeResource(getResources(), R.drawable.monster), 320, 2350);
         monsterList.add(monster1);
         Monster monster2 = new Monster(BitmapFactory.decodeResource(getResources(), R.drawable.monster5), 910, 2055);
@@ -99,6 +96,32 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
         monsterList.add(monster10);
         Monster monster11 = new Monster(BitmapFactory.decodeResource(getResources(), R.drawable.monster4), 25, 2055);
         monsterList.add(monster11);
+    }
+
+    public void showMonsters(boolean bool){
+        showMonsters = bool;
+        new CountDownTimer(0, 1000){
+            @Override
+            public void onTick(long l) {
+
+            }
+
+            @Override
+            public void onFinish() {
+                showMonsters = false;
+            }
+        }.start();
+    }
+
+    public void drawCharacter(){
+        character = new Character(BitmapFactory.decodeResource(getResources(), R.drawable.ninja2));
+        finishPoint = BitmapFactory.decodeResource(getResources(), R.drawable.castle);
+    }
+
+    public void drawMonsters(){
+        for (int i = 0; i < monsterList.size(); i++) {
+            monsterList.get(i).draw(canvas);
+        }
     }
 
     public void moveForward() {
@@ -209,8 +232,9 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
         this.canvas = canvas;
         canvas.drawBitmap(backgroundImage, 0, 0, null);
         character.draw(canvas);
-        for (int i = 0; i < monsterList.size(); i++) {
-            monsterList.get(i).draw(canvas);
+
+        if(showMonsters){
+            drawMonsters();
         }
 
         canvas.drawBitmap(finishPoint,25,-10,null);
