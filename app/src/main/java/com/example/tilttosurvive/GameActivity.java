@@ -98,10 +98,6 @@ public class GameActivity extends Activity {
         }
     }
 
-    public void showTimer(boolean bool){
-        gameView.showTimer(bool);
-    }
-
     public void unRegisterSensors(){
         sensorManager.unregisterListener(sensorListener);
     }
@@ -140,7 +136,7 @@ public class GameActivity extends Activity {
         soundBgMusic.start();
     }
 
-    public void showTimer(Boolean b){
-        gameView.showTimer(b);
+    public void showTimer(){
+        gameView.showTimer();
     }
 }

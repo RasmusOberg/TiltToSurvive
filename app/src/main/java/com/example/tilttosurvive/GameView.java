@@ -172,7 +172,7 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
             Log.w("TEST123","List(2) " + list.get(2).getScore());
 
 
-            if (list.get(2).getScore() > Double.parseDouble(time10th)) {
+//            if (list.get(2).getScore() > Double.parseDouble(time10th)) {
                 final EditText input = new EditText(getContext());
                 input.setInputType(InputType.TYPE_CLASS_TEXT);
                 builder.setView(input);
@@ -201,7 +201,7 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
             }
 
         }
-    }
+//    }
 
     public void update() {
         character.update();
@@ -249,8 +249,11 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
         time = System.currentTimeMillis();
     }
 
-    public void showTimer(boolean bool) {
-        showTimer = bool;
+    public void showTimer() {
+        if(showTimer)
+            showTimer = false;
+        if(!showTimer)
+            showTimer = true;
     }
 
 
