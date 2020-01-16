@@ -63,7 +63,7 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
         gameThread = new GameThread(getHolder(), this);
         setFocusable(true);
         gameActivity = activity;
-        gameActivity.unRegisterGyro();
+//        gameActivity.unRegisterGyro();
     }
 
     @Override

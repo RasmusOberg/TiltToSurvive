@@ -49,7 +49,7 @@ public class GameActivity extends Activity {
         }
         if(sensorManager.getDefaultSensor(Sensor.TYPE_GYROSCOPE) != null) {
             sGyroscope = sensorManager.getDefaultSensor(Sensor.TYPE_GYROSCOPE);
-            sensorManager.registerListener(sensorListener, sGyroscope, SensorManager.SENSOR_DELAY_NORMAL);
+          //  sensorManager.registerListener(sensorListener, sGyroscope, SensorManager.SENSOR_DELAY_NORMAL);
             Toast.makeText(this, sGyroscope.getName() + " is registered", Toast.LENGTH_SHORT).show();
             isGyroPresent = true;
         } else {
@@ -108,7 +108,7 @@ public class GameActivity extends Activity {
             sensorManager.registerListener(sensorListener, sAcc, SensorManager.SENSOR_DELAY_NORMAL);
         }
         if(isGyroPresent){
-            sensorManager.registerListener(sensorListener, sGyroscope, SensorManager.SENSOR_DELAY_NORMAL);
+            //sensorManager.registerListener(sensorListener, sGyroscope, SensorManager.SENSOR_DELAY_NORMAL);
         }
         if(isProximityPresent){
             sensorManager.registerListener(sensorListener, sProximity, SensorManager.SENSOR_DELAY_NORMAL);
