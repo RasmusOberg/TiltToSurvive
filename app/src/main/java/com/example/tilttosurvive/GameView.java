@@ -12,6 +12,7 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Point;
 import android.media.MediaPlayer;
+import android.media.tv.TvInputManager;
 import android.text.InputType;
 import android.util.Log;
 import android.view.Display;
@@ -22,6 +23,7 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.core.content.ContextCompat;
@@ -160,37 +162,49 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
                 getContext().startActivity(i2);
             }
         }
-        if (character.getX() == 25 && character.getY() == -10){
+        if (character.getX() == 25 && character.getY() == -10) {
             character.setAbleToMove(false);
             AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
-            builder.setTitle("Highscore!");
+            builder.setTitle("Highscore! =D Enter Name");
 
-            // Set up the input
-            final EditText input = new EditText(getContext());
-            input.setInputType(InputType.TYPE_CLASS_TEXT);
-            builder.setView(input);
+            ArrayList<Score> list = (ArrayList<Score>) repo.getHighscores();
 
-            builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    m_Text = input.getText().toString();
-                    Log.d(TAG, "onClick: " + m_Text + " " + time10th);
-                    repo.insert(new Score(m_Text, Double.parseDouble(time10th)));
-                    Intent intent = new Intent(getContext(), MainActivity.class);
-                    gameThread.setRunning(false);
-                    getContext().startActivity(intent);
-                }
-            });
-            builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    dialog.cancel();
-                    Intent intent = new Intent(getContext(), MainActivity.class);
-                    gameThread.setRunning(false);
-                    getContext().startActivity(intent);
-                }
-            });
-            builder.show();
+            Log.w("TEST123","SCORE: " + time10th  + ", double value: " + Double.parseDouble(time10th));
+
+            Log.w("TEST123","List(2) " + list.get(2).getScore());
+
+
+            if (list.get(2).getScore() > Double.parseDouble(time10th)) {
+
+
+                // Set up the input
+                final EditText input = new EditText(getContext());
+                input.setInputType(InputType.TYPE_CLASS_TEXT);
+                builder.setView(input);
+
+                builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        m_Text = input.getText().toString();
+                        Log.d(TAG, "onClick: " + m_Text + " " + time10th);
+                        repo.insert(new Score(m_Text, Double.parseDouble(time10th)));
+                        Intent intent = new Intent(getContext(), MainActivity.class);
+                        gameThread.setRunning(false);
+                        getContext().startActivity(intent);
+                    }
+                });
+                builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.cancel();
+                        Intent intent = new Intent(getContext(), MainActivity.class);
+                        gameThread.setRunning(false);
+                        getContext().startActivity(intent);
+                    }
+                });
+                builder.show();
+            }
+
         }
     }
 

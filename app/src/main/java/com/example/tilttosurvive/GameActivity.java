@@ -18,7 +18,7 @@ public class GameActivity extends Activity {
     private SensorListener sensorListener;
     private boolean isAccPresent, isGyroPresent, isProximityPresent;
     private GameView gameView;
-    private MediaPlayer soundJump, soundDead, soundBgMusic;
+    private MediaPlayer soundJumpForward, soundJumpBack, soundJumpRight, soundJumpLeft, soundDead, soundBgMusic;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,7 +28,11 @@ public class GameActivity extends Activity {
         gameView = new GameView(this, getApplication());
         setContentView(gameView);
         sensorListener = new SensorListener(this);
-        soundJump = MediaPlayer.create(this, R.raw.jump);
+        soundJumpForward = MediaPlayer.create(this, R.raw.jump);
+        soundJumpBack = MediaPlayer.create(this, R.raw.jump);
+        soundJumpLeft = MediaPlayer.create(this, R.raw.jump);
+        soundJumpRight = MediaPlayer.create(this, R.raw.jump);
+
         soundDead = MediaPlayer.create(this, R.raw.victory);
         soundBgMusic = MediaPlayer.create(this, R.raw.music);
         soundBgMusic.start();
@@ -61,8 +65,17 @@ public class GameActivity extends Activity {
         }
     }
 
-    public void playSoundJump(){
-        soundJump.start();
+    public void playSoundJumpForward(){
+        soundJumpForward.start();
+    }
+    public void playSoundJumpBack(){
+        soundJumpBack.start();
+    }
+    public void playSoundJumpRight(){
+        soundJumpRight.start();
+    }
+    public void playSoundJumpLeft(){
+        soundJumpLeft.start();
     }
 
     public void playSoundDead(){
@@ -70,7 +83,7 @@ public class GameActivity extends Activity {
     }
 
     public void reDraw(){
-        gameView.showMonsters(true);
+//        gameView.showMonsters(true);
     }
 
     public void registerSensors(){
@@ -95,22 +108,22 @@ public class GameActivity extends Activity {
 
     public void moveForward(){
         gameView.moveForward();
-        playSoundJump();
+        playSoundJumpForward();
     }
 
     public void moveLeft(){
         gameView.moveLeft();
-        playSoundJump();
+        playSoundJumpLeft();
     }
 
     public void moveRight(){
         gameView.moveRight();
-        playSoundJump();
+        playSoundJumpRight();
     }
 
     public void moveDown(){
         gameView.moveDown();
-        playSoundJump();
+        playSoundJumpBack();
     }
 
     @Override

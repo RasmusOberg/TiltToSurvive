@@ -17,6 +17,6 @@ public interface Dao {
     @Update
     void update(Score score);
 
-    @Query("SELECT * FROM highscore_table ORDER BY score ASC LIMIT 3")
+    @Query("SELECT * FROM highscore_table ORDER BY score ASC")
     List<Score> getAllHighscores();
 }
