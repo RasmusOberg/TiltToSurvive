@@ -13,6 +13,7 @@ import android.graphics.Paint;
 import android.graphics.Point;
 import android.media.MediaPlayer;
 import android.media.tv.TvInputManager;
+import android.os.CountDownTimer;
 import android.text.InputType;
 import android.util.Log;
 import android.view.Display;
@@ -207,17 +208,17 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
     }
 
     public void showMonsters(boolean bool){
-        showMonsters = bool;
-        new Thread(){
-            public void run(){
-                try {
-                    Thread.sleep(5000);
-                    showMonsters = true;
-                }catch (InterruptedException e){
-                    e.printStackTrace();
-                }
+        new CountDownTimer(5000, 1000) {
+
+            public void onTick(long millisUntilFinished) {
+                //here you can have your logic to set text to edittext
             }
-        }.run();
+
+            public void onFinish() {
+                showMonsters = false;
+            }
+
+        }.start();
     }
 
     @Override
