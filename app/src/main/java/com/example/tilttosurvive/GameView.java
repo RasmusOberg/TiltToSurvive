@@ -167,7 +167,7 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
             }
         }
         if (character.getX() == 25 && character.getY() == -10) {
-            showTimer();
+            setTimerToFalse();
             final double time = Double.parseDouble(time10th);
             character.setAbleToMove(false);
             gameActivity.unRegisterSensors();
@@ -263,6 +263,10 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
             showTimer = false;
         else if(!showTimer)
             showTimer = true;
+    }
+
+    public void setTimerToFalse(){
+        showTimer = false;
     }
 
 
