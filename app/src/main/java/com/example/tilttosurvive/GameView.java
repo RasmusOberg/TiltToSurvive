@@ -34,7 +34,7 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
     private GameThread gameThread;
     private Character character;
     private Canvas canvas;
-    private boolean firstStep = false, showTimer = false;
+    private boolean firstStep = false, showTimer = false, showMonsters;
     private Paint paint;
     private Bitmap backgroundImage;
     private Long time;
@@ -50,7 +50,6 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
     public GameView(Context context, Application application) {
         super(context);
         backgroundImage = BitmapFactory.decodeResource(getResources(), R.drawable.bakgrund4);
-//        characterImage = BitmapFactory.decodeResource(getResources(), R.drawable.ninja2);
         backgroundImage.createScaledBitmap(backgroundImage, screenWidth, screenHeight, false);
         getHolder().addCallback(this);
         paint = new Paint();
@@ -168,16 +167,11 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
             builder.setTitle("Highscore! =D Enter Name");
 
             ArrayList<Score> list = (ArrayList<Score>) repo.getHighscores();
-
             Log.w("TEST123","SCORE: " + time10th  + ", double value: " + Double.parseDouble(time10th));
-
             Log.w("TEST123","List(2) " + list.get(2).getScore());
 
 
             if (list.get(2).getScore() > Double.parseDouble(time10th)) {
-
-
-                // Set up the input
                 final EditText input = new EditText(getContext());
                 input.setInputType(InputType.TYPE_CLASS_TEXT);
                 builder.setView(input);
@@ -212,6 +206,19 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
         character.update();
     }
 
+    public void showMonsters(boolean bool){
+        showMonsters = bool;
+        new Thread(){
+            public void run(){
+                try {
+                    Thread.sleep(5000);
+                }catch (InterruptedException e){
+                    e.printStackTrace();
+                }
+            }
+        }.run();
+    }
+
     @Override
     public void draw(Canvas canvas) {
         super.draw(canvas);
@@ -219,8 +226,10 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
         canvas.drawBitmap(backgroundImage, 0, 0, null);
         character.draw(canvas);
 
-        for (int i = 0; i < monsterList.size(); i++) {
-            monsterList.get(i).draw(canvas);
+        if(showMonsters) {
+            for (int i = 0; i < monsterList.size(); i++) {
+                monsterList.get(i).draw(canvas);
+            }
         }
 
         canvas.drawBitmap(finishPoint,25,-10,null);
@@ -230,10 +239,6 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
             canvas.drawText(time10th, 860, 150, paint);
         }
 
-        if (canvas != null) {
-        }
-
-        //fuckgit
     }
 
     private void startTimer() {

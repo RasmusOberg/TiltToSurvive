@@ -40,7 +40,6 @@ public class Character {
 
     public void moveForward(Canvas canvas) {
         if (ableToMove) {
-
             if (y2 > 30) {
                 y2 = y2 - moveY;
                 canvas.drawBitmap(ninja, x2, y2, null);
@@ -53,13 +52,9 @@ public class Character {
     }
 
     public void moveLeft(Canvas canvas) {
-
         if(ableToMove) {
-
-
             x2 = x2 - moveX;
             canvas.drawBitmap(ninja, x2, y2, null);
-//        Log.w("TEST123", "moveLeft x2 = " + x2 + " y2 = " + y2);
 
             if (x2 < 25) {
                 x2 = 1205;

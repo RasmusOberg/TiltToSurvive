@@ -65,6 +65,10 @@ public class GameActivity extends Activity {
         }
     }
 
+    public void showMonsters(boolean bool){
+        gameView.showMonsters(bool);
+    }
+
     public void playSoundJumpForward(){
         soundJumpForward.start();
     }
@@ -80,10 +84,6 @@ public class GameActivity extends Activity {
 
     public void playSoundDead(){
         soundDead.start();
-    }
-
-    public void reDraw(){
-//        gameView.showMonsters(true);
     }
 
     public void registerSensors(){

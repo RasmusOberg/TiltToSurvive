@@ -16,7 +16,7 @@ public class SensorListener implements SensorEventListener {
     boolean forwardX = false, backwardX = false, forwardY = false, backwardY = false;
     boolean isFullStepTakenX = false, isFullStepTakenY = false;
     private float number;
-    private int shakeThreshold = 20;
+    private int shakeThreshold = 10;
 
 
     public SensorListener(GameActivity gameActivity) {
@@ -25,8 +25,6 @@ public class SensorListener implements SensorEventListener {
 
     @Override
     public void onSensorChanged(SensorEvent event) {
-
-
         // SHAKER
 
         float x, y, z, lastX = 0, lastY = 0, lastZ = 0;
@@ -39,23 +37,15 @@ public class SensorListener implements SensorEventListener {
             float deltaY = Math.abs(lastY - y);
             float deltaZ = Math.abs(lastZ - z);
 
-
             if ((deltaX > shakeThreshold && deltaY > shakeThreshold)
                     || (deltaX > shakeThreshold && deltaZ > shakeThreshold)
                     || (deltaY > shakeThreshold && deltaZ > shakeThreshold)) {
-
-                gameActivity.reDraw();
-            }
-        }
-
-        if (event.sensor.getType() == Sensor.TYPE_ACCELEROMETER) {
-            if (event.values[0] > 1) {
-                gameActivity.reDraw();
+                Toast.makeText(gameActivity, "TOAST", Toast.LENGTH_SHORT).show();
+                gameActivity.showMonsters(true);
             }
         }
 
         if (event.sensor.getType() == Sensor.TYPE_GYROSCOPE) {
-
 //            x är fram och tillbaka
 //            y är höger och vänster
 
@@ -117,8 +107,6 @@ public class SensorListener implements SensorEventListener {
     }
 
     public void stepTakenX(float value) {
-
-
         if (value < -1.0f) {
             backwardX = true;
         }
@@ -126,7 +114,6 @@ public class SensorListener implements SensorEventListener {
         if (value > 1.0f) {
             forwardX = true;
         }
-
 
         if (backwardX) {
             if (value > 1.0f) {
@@ -154,8 +141,6 @@ public class SensorListener implements SensorEventListener {
     }
 
     public void stepTakenY(float value) {
-
-
         if (value < -1.0f) {
             backwardY = true;
         }
@@ -164,11 +149,9 @@ public class SensorListener implements SensorEventListener {
             forwardY = true;
         }
 
-
         if (backwardY) {
             if (value > 1.0f) {
                 gameActivity.moveLeft();
-//                Toast.makeText(gameActivity, "Step left", Toast.LENGTH_SHORT).show();
                 forwardY = false;
                 backwardY = false;
                 forwardX = false;
@@ -180,7 +163,6 @@ public class SensorListener implements SensorEventListener {
         if (forwardY) {
             if (value < -1.0f) {
                 gameActivity.moveRight();
-//                Toast.makeText(gameActivity, "Step right!", Toast.LENGTH_SHORT).show();
                 forwardY = false;
                 backwardY = false;
                 forwardX = false;
