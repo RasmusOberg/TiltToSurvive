@@ -168,7 +168,7 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
         }
         if (character.getX() == 25 && character.getY() == -10) {
             showTimer();
-            double time = Double.parseDouble(time10th);
+            final double time = Double.parseDouble(time10th);
             character.setAbleToMove(false);
             gameActivity.unRegisterSensors();
             AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
@@ -188,8 +188,8 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         m_Text = input.getText().toString();
-                        Log.d(TAG, "onClick: " + m_Text + " " + time10th);
-                        repo.insert(new Score(m_Text, Double.parseDouble(time10th)));
+                        Log.d(TAG, "onClick: " + m_Text + " " + time);
+                        repo.insert(new Score(m_Text, time));
                         Intent intent = new Intent(getContext(), MainActivity.class);
                         gameThread.setRunning(false);
                         getContext().startActivity(intent);

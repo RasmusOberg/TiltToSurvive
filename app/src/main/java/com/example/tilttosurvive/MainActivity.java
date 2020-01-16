@@ -18,19 +18,7 @@ import android.widget.Toast;
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
-//
-//    SensorManager sensorManager;
-//
-//    Sensor sAcc, sGyroscope, sProximity;
-//
-//    SensorListener sensorListener;
-//
-//    boolean isAccPresent, isGyroPresent, isProximityPresent;
-//
-//    float gyroX, gyroY, gyroZ, accX, accY, accZ;
-//
-//    TextView tvAcc, tvGyro, tvProxy;
-
+    private static final String TAG = "MainActivity";
     private Repo repo;
     private Button btnStart;
     private Button btnInstructions;
@@ -45,45 +33,10 @@ public class MainActivity extends AppCompatActivity {
         getHighScores();
     }
 
-//        sensorListener = new SensorListener(this);
-//        sensorManager = (SensorManager) this.getSystemService(Context.SENSOR_SERVICE);
-//
-//        if (sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER) != null) {
-//            sAcc = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
-//            sensorManager.registerListener(sensorListener, sAcc, SensorManager.SENSOR_DELAY_NORMAL);
-//            Toast.makeText(this, sAcc.getName() + " is registered", Toast.LENGTH_SHORT).show();
-//            isAccPresent = true;
-//        } else {
-//
-//            isAccPresent = false;
-//        }
-//        if(sensorManager.getDefaultSensor(Sensor.TYPE_GYROSCOPE) != null) {
-//            sGyroscope = sensorManager.getDefaultSensor(Sensor.TYPE_GYROSCOPE);
-//            sensorManager.registerListener(sensorListener, sGyroscope, SensorManager.SENSOR_DELAY_NORMAL);
-//            Toast.makeText(this, sGyroscope.getName() + " is registered", Toast.LENGTH_SHORT).show();
-//            isGyroPresent = true;
-//        } else {
-//
-//            isGyroPresent = false;
-//        }
-//        if (sensorManager.getDefaultSensor(Sensor.TYPE_PROXIMITY) != null) {
-//            sProximity = sensorManager.getDefaultSensor(Sensor.TYPE_PROXIMITY);
-//            sensorManager.registerListener(sensorListener, sProximity, SensorManager.SENSOR_DELAY_NORMAL);
-//            Toast.makeText(this, sProximity.getName() + " is registered", Toast.LENGTH_SHORT).show();
-//            isProximityPresent = true;
-//        } else {
-//
-//            isProximityPresent = false;
-//        }
-
     public void initialize() {
-//        tvAcc = findViewById(R.id.tvAcc);
-//        tvGyro = findViewById(R.id.tvGyro);
-//        tvProxy = findViewById(R.id.tvProxy);
         tvHighScore = findViewById(R.id.tvHighScore);
 
         repo = new Repo(getApplication());
-        //repo.insert(new Score("Roland", 20));
 
         soundStart = MediaPlayer.create(this, R.raw.new_game);
 
@@ -102,12 +55,15 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void getHighScores(){
+        repo.insert(new Score("Rasmus", 10));
+        repo.insert(new Score("Fredrik", 15));
         ArrayList<Score> list = (ArrayList)repo.getHighscores();
-        Log.w("TEST123","List Size: " + list.size());
+        Log.d(TAG, "getHighScores: " + list.toString());
         String scores = "";
         for (int i = 0; i < list.size(); i ++){
             scores += list.get(i).getName() + " - " + list.get(i).getScore() + "\n";
-
+            Log.d(TAG, "getHighScores: " + list.get(i).getName());
+            Log.d(TAG, "getHighScores: " + list.get(i).getScore());
         }
         tvHighScore.setText(scores);
     }
