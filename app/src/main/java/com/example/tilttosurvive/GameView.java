@@ -212,6 +212,7 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
             public void run(){
                 try {
                     Thread.sleep(5000);
+                    showMonsters = true;
                 }catch (InterruptedException e){
                     e.printStackTrace();
                 }

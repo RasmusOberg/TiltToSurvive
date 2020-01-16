@@ -26,9 +26,7 @@ public class SensorListener implements SensorEventListener {
     @Override
     public void onSensorChanged(SensorEvent event) {
         // SHAKER
-
         float x, y, z, lastX = 0, lastY = 0, lastZ = 0;
-
         if (event.sensor.getType() == Sensor.TYPE_ACCELEROMETER) {
             x = event.values[0];
             y = event.values[1];
