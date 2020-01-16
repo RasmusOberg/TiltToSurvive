@@ -208,10 +208,11 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
     }
 
     public void showMonsters(boolean bool){
+        showMonsters = bool;
         new CountDownTimer(5000, 1000) {
 
             public void onTick(long millisUntilFinished) {
-                //here you can have your logic to set text to edittext
+
             }
 
             public void onFinish() {
