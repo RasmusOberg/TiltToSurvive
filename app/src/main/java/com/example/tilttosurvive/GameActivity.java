@@ -73,12 +73,12 @@ public class GameActivity extends Activity {
         sensorManager.unregisterListener(sensorListener, sAcc);
     }
 
-    public void registerSensor(Sensor sensor){
-        sensorManager.registerListener(sensorListener, sensor, SensorManager.SENSOR_DELAY_NORMAL);
+    public void registerGyro(){
+        sensorManager.registerListener(sensorListener, sGyroscope, SensorManager.SENSOR_DELAY_NORMAL);
     }
 
-    public void unRegisterSensor(Sensor sensor){
-        sensorManager.unregisterListener(sensorListener, sensor);
+    public void unRegisterGyro(){
+        sensorManager.unregisterListener(sensorListener, sGyroscope);
     }
 
 

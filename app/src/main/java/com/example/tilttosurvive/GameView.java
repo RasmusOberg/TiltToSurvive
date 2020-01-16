@@ -63,6 +63,7 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
         gameThread = new GameThread(getHolder(), this);
         setFocusable(true);
         gameActivity = activity;
+        gameActivity.unRegisterGyro();
     }
 
     @Override
@@ -167,6 +168,7 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
         }
         if (character.getX() == 25 && character.getY() == -10) {
             character.setAbleToMove(false);
+            gameActivity.unRegisterSensors();
             AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
             builder.setTitle("Highscore! =D Enter Name");
 
@@ -213,6 +215,7 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
     public void showMonsters(boolean bool){
         showMonsters = bool;
         gameActivity.unRegisterAcc();
+        gameActivity.registerGyro();
         new CountDownTimer(5000, 1000) {
 
             public void onTick(long millisUntilFinished) {
