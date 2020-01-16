@@ -46,7 +46,6 @@ public class SensorListener implements SensorEventListener {
         if (event.sensor.getType() == Sensor.TYPE_GYROSCOPE) {
 //            x är fram och tillbaka
 //            y är höger och vänster
-
             if (event.values[0] < 0.4f && event.values[0] > -0.4f && isFullStepTakenX) {
                 isFullStepTakenX = false;
                 forwardX = false;
@@ -54,11 +53,9 @@ public class SensorListener implements SensorEventListener {
                 forwardY = false;
                 backwardY = false;
             }
-
             if (isFullStepTakenX) {
                 return;
             }
-
             if (event.values[1] < 0.4f && event.values[1] > -0.4f && isFullStepTakenY) {
                 isFullStepTakenY = false;
                 forwardX = false;
@@ -66,11 +63,9 @@ public class SensorListener implements SensorEventListener {
                 forwardY = false;
                 backwardY = false;
             }
-
             if (isFullStepTakenY) {
                 return;
             }
-
             if (event.values[0] > 1.0f) {
                 lastForwardX = event.values[0];
                 stepTakenX(lastForwardX);
@@ -79,10 +74,8 @@ public class SensorListener implements SensorEventListener {
                 lastBackwardX = event.values[0];
                 stepTakenX(lastBackwardX);
             }
-
             if (event.values[1] > 1.0f) {
                 lastForwardY = event.values[1];
-
                 stepTakenY(lastForwardY);
             }
             if (event.values[1] < -1.0f) {

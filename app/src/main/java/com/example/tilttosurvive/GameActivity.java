@@ -25,7 +25,7 @@ public class GameActivity extends Activity {
         super.onCreate(savedInstanceState);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         this.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        gameView = new GameView(this, getApplication());
+        gameView = new GameView(this, getApplication(), this);
         setContentView(gameView);
         sensorListener = new SensorListener(this);
         soundJumpForward = MediaPlayer.create(this, R.raw.jump);
@@ -64,6 +64,23 @@ public class GameActivity extends Activity {
             isProximityPresent = false;
         }
     }
+
+    public void registerAcc(){
+        sensorManager.registerListener(sensorListener, sAcc, SensorManager.SENSOR_DELAY_NORMAL);
+    }
+
+    public void unRegisterAcc(){
+        sensorManager.unregisterListener(sensorListener, sAcc);
+    }
+
+    public void registerSensor(Sensor sensor){
+        sensorManager.registerListener(sensorListener, sensor, SensorManager.SENSOR_DELAY_NORMAL);
+    }
+
+    public void unRegisterSensor(Sensor sensor){
+        sensorManager.unregisterListener(sensorListener, sensor);
+    }
+
 
     public void showMonsters(boolean bool){
         gameView.showMonsters(bool);

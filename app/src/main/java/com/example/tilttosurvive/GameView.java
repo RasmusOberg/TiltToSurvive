@@ -1,5 +1,6 @@
 package com.example.tilttosurvive;
 
+import android.app.Activity;
 import android.app.Application;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -47,8 +48,9 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
     private int screenWidth = Resources.getSystem().getDisplayMetrics().widthPixels;
     private int screenHeight = Resources.getSystem().getDisplayMetrics().heightPixels;
     private Repo repo;
+    private GameActivity gameActivity;
 
-    public GameView(Context context, Application application) {
+    public GameView(Context context, Application application, GameActivity activity) {
         super(context);
         backgroundImage = BitmapFactory.decodeResource(getResources(), R.drawable.bakgrund4);
         backgroundImage.createScaledBitmap(backgroundImage, screenWidth, screenHeight, false);
@@ -60,6 +62,7 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
         repo = new Repo(application);
         gameThread = new GameThread(getHolder(), this);
         setFocusable(true);
+        gameActivity = activity;
     }
 
     @Override
@@ -209,6 +212,7 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
 
     public void showMonsters(boolean bool){
         showMonsters = bool;
+        gameActivity.unRegisterAcc();
         new CountDownTimer(5000, 1000) {
 
             public void onTick(long millisUntilFinished) {
