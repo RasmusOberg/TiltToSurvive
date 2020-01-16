@@ -94,7 +94,6 @@ public class SensorListener implements SensorEventListener {
         if (event.sensor.getType() == Sensor.TYPE_PROXIMITY) {
             number = event.values[0];
             if (number < 1) {
-//                gameActivity.playSound();
                 gameActivity.showTimer();
             }
             proxy = event.values[0] + " The only fkn value leggo";

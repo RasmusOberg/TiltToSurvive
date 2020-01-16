@@ -252,7 +252,7 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
     public void showTimer() {
         if(showTimer)
             showTimer = false;
-        if(!showTimer)
+        else if(!showTimer)
             showTimer = true;
     }
 
