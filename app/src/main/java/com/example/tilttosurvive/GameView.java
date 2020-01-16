@@ -173,7 +173,7 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
             gameActivity.unRegisterSensors();
             AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
             builder.setTitle("Highscore! =D Enter Name");
-            builder.setMessage("You're time is = " + time);
+            builder.setMessage("Your time is = " + time);
 
             ArrayList<Score> list = (ArrayList<Score>) repo.getHighscores();
             Log.w("TEST123","SCORE: " + time  + ", double value: " + time);
