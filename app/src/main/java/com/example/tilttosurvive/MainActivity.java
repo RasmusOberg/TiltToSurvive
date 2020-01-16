@@ -55,8 +55,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void getHighScores(){
-        repo.insert(new Score("Rasmus", 10));
-        repo.insert(new Score("Fredrik", 15));
         ArrayList<Score> list = (ArrayList)repo.getHighscores();
         Log.d(TAG, "getHighScores: " + list.toString());
         String scores = "";
