@@ -167,15 +167,16 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
             }
         }
         if (character.getX() == 25 && character.getY() == -10) {
+            showTimer();
+            double time = Double.parseDouble(time10th);
             character.setAbleToMove(false);
             gameActivity.unRegisterSensors();
             AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
             builder.setTitle("Highscore! =D Enter Name");
-            builder.setMessage("You're time is = " + time10th);
-            showTimer();
+            builder.setMessage("You're time is = " + time);
 
             ArrayList<Score> list = (ArrayList<Score>) repo.getHighscores();
-            Log.w("TEST123","SCORE: " + time10th  + ", double value: " + Double.parseDouble(time10th));
+            Log.w("TEST123","SCORE: " + time  + ", double value: " + time);
             Log.w("TEST123","List(2) " + list.get(2).getScore());
 
 //            if (list.get(2).getScore() > Double.parseDouble(time10th)) {
